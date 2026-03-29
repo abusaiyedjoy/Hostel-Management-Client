@@ -1,3 +1,8 @@
+import FaqCtaSection from "@/components/layout/sections/faq-section";
+import FeaturesSection from "@/components/layout/sections/features-section";
+import RoomsSection from "@/components/layout/sections/room-section";
+import StatsSection from "@/components/layout/sections/states-section";
+import TestimonialsSection from "@/components/layout/sections/testimonials-section";
 import Footer from "@/components/shadcn-studio/blocks/hero-section-41/footer";
 import Header from "@/components/shadcn-studio/blocks/hero-section-41/header";
 import HeroSection from "@/components/shadcn-studio/blocks/hero-section-41/hero-section-41";
@@ -68,14 +73,33 @@ const menudata = [
 const HeroSectionPage = () => {
   return (
     <div className="overflow-x-hidden">
-      {/* Header Section */}
       <Header navigationData={navigationData} />
 
-      {/* Main Content */}
       <main className="flex flex-col pt-17.5">
+        {/* 1. Hero */}
         <HeroSection menudata={menudata} />
-        <Footer />
+
+        {/* 2. Features / Why Choose Us */}
+        <FeaturesSection />
+
+        {/* 3. Room Showcase */}
+        <section id="rooms">
+          <RoomsSection />
+        </section>
+
+        {/* 4. Stats / Social Proof */}
+        <StatsSection />
+
+        {/* 5. Testimonials */}
+        <section id="testimonials">
+          <TestimonialsSection />
+        </section>
+
+        {/* 6. FAQ + Final CTA */}
+        <FaqCtaSection />
       </main>
+
+      <Footer />
     </div>
   );
 };

@@ -13,7 +13,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
-import BistroLogo from "@/assets/svg/bistro-logo";
+import StayNestLogo from "@/assets/svg/bistro-logo";
 
 type FooterLink = {
   label: string;
@@ -89,9 +89,9 @@ const Footer = ({ className }: { className?: string }) => {
           <div className="flex flex-col gap-6 lg:col-span-2">
             {/* Logo */}
             <a href="#" className="flex items-center gap-3 w-fit">
-              <BistroLogo />
+              <StayNestLogo />
               <span className="text-primary text-[20px] font-semibold">
-                Bistro
+                StayNest
               </span>
             </a>
 
@@ -156,7 +156,7 @@ const Footer = ({ className }: { className?: string }) => {
       <Separator />
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 sm:flex-row sm:px-6 lg:px-8">
         <p className="text-muted-foreground text-xs">
-          © {new Date().getFullYear()} Bistro. All rights reserved.
+          © {new Date().getFullYear()} StayNest. All rights reserved.
         </p>
 
         {/* Decorative pill */}
