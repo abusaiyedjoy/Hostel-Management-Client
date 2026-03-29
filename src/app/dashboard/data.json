@@ -1,0 +1,579 @@
+{
+  "dashboard": {
+    "stats": [
+      {
+        "label": "Total Users",
+        "value": "12,345",
+        "sub": "vs last month",
+        "trend": "+8%",
+        "icon": "Users",
+        "iconColor": "#6E56FF",
+        "iconBg": "#ede9ff"
+      },
+      {
+        "label": "Active Businesses",
+        "value": "1,284",
+        "sub": "vs last month",
+        "trend": "+5%",
+        "icon": "Briefcase",
+        "iconColor": "#16a34a",
+        "iconBg": "#dcfce7"
+      },
+      {
+        "label": "Pending Reviews",
+        "value": "89",
+        "sub": "Awaiting moderation",
+        "trend": "+2%",
+        "icon": "Clock",
+        "iconColor": "#b45309",
+        "iconBg": "#fef9c3"
+      },
+      {
+        "label": "Flagged Content",
+        "value": "23",
+        "sub": "Requires attention",
+        "trend": "-4%",
+        "icon": "Flag",
+        "iconColor": "#dc2626",
+        "iconBg": "#fee2e2"
+      }
+    ],
+    "recentActivity": [
+      {
+        "id": 1,
+        "event": "New business registration",
+        "user": "skjhfdhf@gmail.com",
+        "status": "Pending",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 2,
+        "event": "Review flagged",
+        "user": "hbsdfauhef@gmail.com",
+        "status": "Active",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 3,
+        "event": "Payment processed",
+        "user": "isdjfngsdjnfvn@gmail.com",
+        "status": "Active",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 4,
+        "event": "Payment processed",
+        "user": "isdjfngsdjnfvn@gmail.com",
+        "status": "Suspended",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 5,
+        "event": "Payment processed",
+        "user": "isdjfngsdjnfvn@gmail.com",
+        "status": "Active",
+        "date": "2025-1-15"
+      }
+    ]
+  },
+
+  "users": {
+    "stats": [
+      {
+        "label": "Reviews this month",
+        "value": "1,200",
+        "sub": "vs last month",
+        "trend": "+12%",
+        "icon": "Star",
+        "iconColor": "#6E56FF",
+        "iconBg": "#ede9ff"
+      },
+      {
+        "label": "Active Users",
+        "value": "11,890",
+        "sub": "of total users",
+        "trend": "+3%",
+        "icon": "UserCheck",
+        "iconColor": "#16a34a",
+        "iconBg": "#dcfce7"
+      },
+      {
+        "label": "Suspended Users",
+        "value": "455",
+        "sub": "of total users",
+        "trend": "-1%",
+        "icon": "UserX",
+        "iconColor": "#dc2626",
+        "iconBg": "#fee2e2"
+      }
+    ],
+    "tableConfig": {
+      "title": "Recent Activity",
+      "subtitle": "Latest platform activities and alerts",
+      "searchPlaceholder": "Search Users...",
+      "columns": [
+        { "key": "user", "label": "USER", "type": "userCell" },
+        { "key": "status", "label": "STATUS", "type": "badge" },
+        { "key": "joinDate", "label": "JOIN DATE", "type": "text" },
+        { "key": "actions", "label": "ACTIONS", "type": "userActions" }
+      ]
+    },
+    "rows": [
+      {
+        "id": 1,
+        "name": "New business registration",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "NB",
+        "status": "Active",
+        "joinDate": "2025-1-15",
+        "reviews": 14,
+        "role": "Business Owner"
+      },
+      {
+        "id": 2,
+        "name": "Review flagged",
+        "email": "hbsdfauhef@gmail.com",
+        "avatar": "RF",
+        "status": "Active",
+        "joinDate": "2025-1-15",
+        "reviews": 3,
+        "role": "User"
+      },
+      {
+        "id": 3,
+        "name": "Payment processed",
+        "email": "isdjfngsdjnfvn@gmail.com",
+        "avatar": "PP",
+        "status": "Active",
+        "joinDate": "2025-1-15",
+        "reviews": 22,
+        "role": "User"
+      },
+      {
+        "id": 4,
+        "name": "Payment processed",
+        "email": "isdjfngsdjnfvn@gmail.com",
+        "avatar": "PP",
+        "status": "Suspended",
+        "joinDate": "2025-1-15",
+        "reviews": 8,
+        "role": "User"
+      },
+      {
+        "id": 5,
+        "name": "Payment processed",
+        "email": "isdjfngsdjnfvn@gmail.com",
+        "avatar": "PP",
+        "status": "Active",
+        "joinDate": "2025-1-15",
+        "reviews": 5,
+        "role": "Business Owner"
+      },
+      {
+        "id": 6,
+        "name": "Payment processed",
+        "email": "isdjfngsdjnfvn@gmail.com",
+        "avatar": "PP",
+        "status": "Pending",
+        "joinDate": "2025-1-15",
+        "reviews": 0,
+        "role": "User"
+      },
+      {
+        "id": 7,
+        "name": "Alex Johnson",
+        "email": "alex.johnson@gmail.com",
+        "avatar": "AJ",
+        "status": "Active",
+        "joinDate": "2025-2-03",
+        "reviews": 31,
+        "role": "User"
+      },
+      {
+        "id": 8,
+        "name": "Maria Gonzalez",
+        "email": "maria.g@gmail.com",
+        "avatar": "MG",
+        "status": "Active",
+        "joinDate": "2025-2-11",
+        "reviews": 17,
+        "role": "Business Owner"
+      },
+      {
+        "id": 9,
+        "name": "David Kim",
+        "email": "dkim@outlook.com",
+        "avatar": "DK",
+        "status": "Suspended",
+        "joinDate": "2025-1-28",
+        "reviews": 4,
+        "role": "User"
+      },
+      {
+        "id": 10,
+        "name": "Sarah Williams",
+        "email": "sarah.w@gmail.com",
+        "avatar": "SW",
+        "status": "Active",
+        "joinDate": "2025-3-01",
+        "reviews": 9,
+        "role": "User"
+      },
+      {
+        "id": 11,
+        "name": "James Patel",
+        "email": "jpatel@yahoo.com",
+        "avatar": "JP",
+        "status": "Pending",
+        "joinDate": "2025-3-05",
+        "reviews": 0,
+        "role": "Business Owner"
+      },
+      {
+        "id": 12,
+        "name": "Emily Chen",
+        "email": "echen@gmail.com",
+        "avatar": "EC",
+        "status": "Active",
+        "joinDate": "2025-3-08",
+        "reviews": 42,
+        "role": "User"
+      }
+    ]
+  },
+
+  "business": {
+    "stats": [
+      {
+        "label": "Total Business",
+        "value": "1,284",
+        "sub": "vs last month",
+        "trend": "+8%",
+        "icon": "Briefcase",
+        "iconColor": "#6E56FF",
+        "iconBg": "#ede9ff"
+      },
+      {
+        "label": "Verified",
+        "value": "987",
+        "sub": "of total",
+        "trend": "+5%",
+        "icon": "BadgeCheck",
+        "iconColor": "#16a34a",
+        "iconBg": "#dcfce7"
+      },
+      {
+        "label": "Pending Approval",
+        "value": "89",
+        "sub": "Requires review",
+        "trend": "+2%",
+        "icon": "Clock",
+        "iconColor": "#b45309",
+        "iconBg": "#fef9c3"
+      },
+      {
+        "label": "Claimed",
+        "value": "234",
+        "sub": "of total",
+        "trend": "+6%",
+        "icon": "Tag",
+        "iconColor": "#0284c7",
+        "iconBg": "#e0f2fe"
+      }
+    ],
+    "tableConfig": {
+      "title": "Business Listings",
+      "subtitle": "Manage business accounts and verifications",
+      "searchPlaceholder": "Search Businesses...",
+      "columns": [
+        { "key": "user", "label": "USER", "type": "userCell" },
+        { "key": "category", "label": "CATEGORY", "type": "text" },
+        { "key": "status", "label": "STATUS", "type": "badge" },
+        { "key": "claimStatus", "label": "CLAIM STATUS", "type": "claimBadge" },
+        { "key": "subscription", "label": "SUBSCRIPTION", "type": "subBadge" },
+        { "key": "rating", "label": "RATINGS", "type": "rating" },
+        { "key": "reviews", "label": "REVIEW", "type": "text" },
+        { "key": "actions", "label": "ACTION", "type": "businessActions" }
+      ]
+    },
+    "rows": [
+      {
+        "id": 1,
+        "name": "Ronald Richards",
+        "email": "curtis.weaver@example.com",
+        "avatar": "RR",
+        "category": "Restaurant",
+        "status": "Verified",
+        "claimStatus": "Claimed",
+        "subscription": "platinum",
+        "rating": "4.5/5",
+        "reviews": 156
+      },
+      {
+        "id": 2,
+        "name": "Arlene McCoy",
+        "email": "curtis.weaver@example.com",
+        "avatar": "AM",
+        "category": "Technology",
+        "status": "Pending",
+        "claimStatus": "Claimed",
+        "subscription": "Gold",
+        "rating": "3/5",
+        "reviews": 156
+      },
+      {
+        "id": 3,
+        "name": "Dianne Russell",
+        "email": "curtis.weaver@example.com",
+        "avatar": "DR",
+        "category": "Beauty",
+        "status": "Verified",
+        "claimStatus": "Unclaimed",
+        "subscription": "Silver",
+        "rating": "4.5/5",
+        "reviews": 156
+      },
+      {
+        "id": 4,
+        "name": "Kristin Watson",
+        "email": "curtis.weaver@example.com",
+        "avatar": "KW",
+        "category": "Fashion",
+        "status": "Verified",
+        "claimStatus": "Claimed",
+        "subscription": "platinum",
+        "rating": "5/5",
+        "reviews": 156
+      },
+      {
+        "id": 5,
+        "name": "Darrell Steward",
+        "email": "curtis.weaver@example.com",
+        "avatar": "DS",
+        "category": "Education",
+        "status": "Pending",
+        "claimStatus": "Claimed",
+        "subscription": "Silver",
+        "rating": "4.5/5",
+        "reviews": 156
+      },
+      {
+        "id": 6,
+        "name": "Theresa Webb",
+        "email": "curtis.weaver@example.com",
+        "avatar": "TW",
+        "category": "Restaurant",
+        "status": "Verified",
+        "claimStatus": "Unclaimed",
+        "subscription": "Gold",
+        "rating": "4.5/5",
+        "reviews": 156
+      },
+      {
+        "id": 7,
+        "name": "Marvin McKinney",
+        "email": "curtis.weaver@example.com",
+        "avatar": "MM",
+        "category": "Health",
+        "status": "Verified",
+        "claimStatus": "Unclaimed",
+        "subscription": "platinum",
+        "rating": "5/5",
+        "reviews": 156
+      },
+      {
+        "id": 8,
+        "name": "Bessie Cooper",
+        "email": "curtis.weaver@example.com",
+        "avatar": "BC",
+        "category": "Retail",
+        "status": "Pending",
+        "claimStatus": "Claimed",
+        "subscription": "Silver",
+        "rating": "3.5/5",
+        "reviews": 98
+      },
+      {
+        "id": 9,
+        "name": "Jerome Bell",
+        "email": "curtis.weaver@example.com",
+        "avatar": "JB",
+        "category": "Finance",
+        "status": "Verified",
+        "claimStatus": "Claimed",
+        "subscription": "Gold",
+        "rating": "4/5",
+        "reviews": 210
+      },
+      {
+        "id": 10,
+        "name": "Cody Fisher",
+        "email": "curtis.weaver@example.com",
+        "avatar": "CF",
+        "category": "Technology",
+        "status": "Verified",
+        "claimStatus": "Unclaimed",
+        "subscription": "platinum",
+        "rating": "4.5/5",
+        "reviews": 74
+      }
+    ]
+  },
+
+  "content": {
+    "stats": [
+      {
+        "label": "Pending Reviews",
+        "value": "89",
+        "sub": "vs last week",
+        "trend": "+4%",
+        "icon": "Clock",
+        "iconColor": "#b45309",
+        "iconBg": "#fef9c3"
+      },
+      {
+        "label": "Flagged Content",
+        "value": "23",
+        "sub": "vs last week",
+        "trend": "-8%",
+        "icon": "Flag",
+        "iconColor": "#dc2626",
+        "iconBg": "#fee2e2"
+      },
+      {
+        "label": "Auto Approved",
+        "value": "1,456",
+        "sub": "by AI system",
+        "trend": "+20%",
+        "icon": "Bot",
+        "iconColor": "#0284c7",
+        "iconBg": "#e0f2fe"
+      },
+      {
+        "label": "Manual Reviews",
+        "value": "234",
+        "sub": "this month",
+        "trend": "+12%",
+        "icon": "ClipboardCheck",
+        "iconColor": "#6E56FF",
+        "iconBg": "#ede9ff"
+      }
+    ],
+    "tabs": ["Reviews", "Images", "Videos"],
+    "tableConfig": {
+      "title": "Review Moderation",
+      "subtitle": "Latest platform activities and alerts",
+      "searchPlaceholder": "Search Reviews...",
+      "columns": [
+        { "key": "user", "label": "USER", "type": "userCell" },
+        { "key": "business", "label": "BUSINESS", "type": "text" },
+        { "key": "content", "label": "CONTENT", "type": "longText" },
+        { "key": "status", "label": "STATUS", "type": "badge" },
+        { "key": "date", "label": "DATE", "type": "text" },
+        { "key": "actions", "label": "ACTIONS", "type": "contentActions" }
+      ]
+    },
+    "rows": [
+      {
+        "id": 1,
+        "name": "Ronald Richards",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "RR",
+        "business": "Pizza place",
+        "content": "Excellent service and fair pricing. Fixed my car quickly.",
+        "status": "Approved",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 2,
+        "name": "Ronald Richards",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "RR",
+        "business": "Pizza place",
+        "content": "Excellent service and fair pricing. Fixed my car quickly.",
+        "status": "Approved",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 3,
+        "name": "Ronald Richards",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "RR",
+        "business": "Pizza place",
+        "content": "Excellent service and fair pricing. Fixed my car quickly.",
+        "status": "Approved",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 4,
+        "name": "Cameron Williamson",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "CW",
+        "business": "Pizza place",
+        "content": "Nice atmosphere but the food was cold when it arrived.",
+        "status": "Pending",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 5,
+        "name": "Floyd Miles",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "FM",
+        "business": "Pizza place",
+        "content": "Best coffee in town! Love the cozy atmosphere.",
+        "status": "Pending",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 6,
+        "name": "Annette Black",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "AB",
+        "business": "Tech Solition",
+        "content": "This company is terrible and unprofessional. Avoid at all costs!",
+        "status": "Flagged",
+        "date": "2025-1-15"
+      },
+      {
+        "id": 7,
+        "name": "Leslie Alexander",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "LA",
+        "business": "Burger Barn",
+        "content": "Great burgers, will definitely come back again soon.",
+        "status": "Approved",
+        "date": "2025-2-01"
+      },
+      {
+        "id": 8,
+        "name": "Jenny Wilson",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "JW",
+        "business": "Spa Luxe",
+        "content": "Relaxing experience, staff were very professional and friendly.",
+        "status": "Pending",
+        "date": "2025-2-03"
+      },
+      {
+        "id": 9,
+        "name": "Guy Hawkins",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "GH",
+        "business": "AutoFix",
+        "content": "They damaged my car and refused to take responsibility!",
+        "status": "Flagged",
+        "date": "2025-2-05"
+      },
+      {
+        "id": 10,
+        "name": "Savannah Nguyen",
+        "email": "skjhfdhf@gmail.com",
+        "avatar": "SN",
+        "business": "Green Grocer",
+        "content": "Fresh produce every time, highly recommend to everyone.",
+        "status": "Approved",
+        "date": "2025-2-07"
+      }
+    ]
+  }
+}
