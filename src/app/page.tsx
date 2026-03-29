@@ -3,29 +3,7 @@ import FeaturesSection from "@/components/layout/sections/features-section";
 import RoomsSection from "@/components/layout/sections/room-section";
 import StatsSection from "@/components/layout/sections/states-section";
 import TestimonialsSection from "@/components/layout/sections/testimonials-section";
-import Footer from "@/components/shadcn-studio/blocks/hero-section-41/footer";
-import Header from "@/components/shadcn-studio/blocks/hero-section-41/header";
 import HeroSection from "@/components/shadcn-studio/blocks/hero-section-41/hero-section-41";
-import type { NavigationSection } from "@/components/shadcn-studio/blocks/menu-navigation";
-
-const navigationData: NavigationSection[] = [
-  {
-    title: "About Us",
-    href: "#",
-  },
-  {
-    title: "Testimonials",
-    href: "#",
-  },
-  {
-    title: "Contact us",
-    href: "#",
-  },
-  {
-    title: "Offers",
-    href: "#",
-  },
-];
 
 const menudata = [
   {
@@ -73,8 +51,6 @@ const menudata = [
 const HeroSectionPage = () => {
   return (
     <div className="overflow-x-hidden">
-      <Header navigationData={navigationData} />
-
       <main className="flex flex-col pt-17.5">
         {/* 1. Hero */}
         <HeroSection menudata={menudata} />
@@ -98,8 +74,6 @@ const HeroSectionPage = () => {
         {/* 6. FAQ + Final CTA */}
         <FaqCtaSection />
       </main>
-
-      <Footer />
     </div>
   );
 };

@@ -42,7 +42,7 @@ const registerSchema = z
       .regex(/[0-9]/, "Must contain a number"),
     confirmPassword: z.string(),
     terms: z.literal(true, {
-      errorMap: () => ({ message: "You must accept the terms to continue" }),
+      error: () => ({ message: "You must accept the terms to continue" }),
     }),
   })
   .refine((d) => d.password === d.confirmPassword, {
@@ -370,7 +370,7 @@ export default function RegisterPage() {
                     <FormItem className="flex items-start gap-2.5 space-y-0">
                       <FormControl>
                         <Checkbox
-                          checked={field.value}
+                          checked={!field.value}
                           onCheckedChange={field.onChange}
                           className="mt-0.5 border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                         />
@@ -437,7 +437,7 @@ export default function RegisterPage() {
         </div>
 
         {/* ── RIGHT PANEL — Branded visual ── */}
-        <div className="hidden lg:flex relative flex-1 bg-gradient-to-br from-primary via-primary/90 to-violet-700 flex-col justify-between p-10 overflow-hidden">
+        <div className="hidden lg:flex relative flex-1 bg-linear-to-br from-primary via-primary/90 to-violet-700 flex-col justify-between p-10 overflow-hidden">
           {/* Decorative blobs */}
           <div className="pointer-events-none absolute -top-24 -right-24 size-80 rounded-full bg-white/10 blur-3xl" />
           <div className="pointer-events-none absolute top-1/2 -left-16 size-56 rounded-full bg-white/8 blur-2xl" />

@@ -9,7 +9,6 @@ import {
   UserXIcon,
   BadgeCheckIcon,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   BedDouble: BedDoubleIcon,
@@ -34,42 +33,53 @@ export interface StatItem {
 
 export function StatsCard({ stat }: { stat: StatItem }) {
   const Icon = ICON_MAP[stat.icon] ?? BedDoubleIcon;
-  const isPositive = stat.trend ? !stat.trend.startsWith("-") : true;
-  const TrendIcon = isPositive ? TrendingUp : TrendingDown;
-  const trendColor = isPositive ? "text-emerald-500" : "text-red-500";
+  const isPos = stat.trend ? !stat.trend.startsWith("-") : true;
+  const TrendIcon = isPos ? TrendingUp : TrendingDown;
+  const trendCls = isPos
+    ? "text-emerald-600 dark:text-emerald-400"
+    : "text-red-500";
 
   return (
-    <Card className="shadow-sm border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-md transition-shadow duration-200">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
+    <div
+      className="
+      rounded-2xl p-5 transition-shadow duration-200
+      bg-[#fafdf8] dark:bg-[#111f11]
+      border border-[#c8ddc8] dark:border-[#1e3a1e]
+      shadow-sm hover:shadow-md hover:shadow-[rgba(20,60,20,0.08)] dark:hover:shadow-[rgba(0,0,0,0.4)]
+    "
+    >
+      <div className="flex items-center justify-between pb-3">
+        <p className="text-sm font-medium text-[#5a7a5a] dark:text-[#6a9a6a]">
           {stat.label}
-        </CardTitle>
+        </p>
         <div
           className="p-2 rounded-xl shrink-0"
           style={{ background: stat.iconBg }}
         >
           <Icon className="size-5" style={{ color: stat.iconColor }} />
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="text-3xl font-bold text-slate-800 dark:text-slate-100">
-          {stat.value}
-        </div>
-        <div className="flex items-center gap-2 mt-2 text-xs">
-          {stat.trend ? (
-            <>
-              <div className={`flex items-center font-semibold ${trendColor}`}>
-                <TrendIcon className="size-3 mr-1" />
-                {stat.trend}
-              </div>
-              <span className="text-muted-foreground">{stat.sub}</span>
-            </>
-          ) : (
-            <span className="text-muted-foreground">{stat.sub}</span>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+
+      <p className="text-3xl font-bold text-[#1a2e1a] dark:text-[#c8ecc8]">
+        {stat.value}
+      </p>
+
+      <div className="flex items-center gap-2 mt-2 text-xs">
+        {stat.trend ? (
+          <>
+            <span className={`flex items-center font-semibold ${trendCls}`}>
+              <TrendIcon className="size-3 mr-1" />
+              {stat.trend}
+            </span>
+            <span className="text-[#7a9a7a] dark:text-[#567056]">
+              {stat.sub}
+            </span>
+          </>
+        ) : (
+          <span className="text-[#7a9a7a] dark:text-[#567056]">{stat.sub}</span>
+        )}
+      </div>
+    </div>
   );
 }
 

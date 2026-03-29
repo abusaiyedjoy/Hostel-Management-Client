@@ -17,15 +17,24 @@ export default function DashboardLayout({
       }
     >
       <AppSidebar variant="inset" className="z-10" />
-      <SidebarInset className="bg-slate-50 dark:bg-slate-950 w-full flex-1 overflow-hidden">
+
+      <SidebarInset
+        className="
+        w-full flex-1 overflow-hidden
+        bg-[#f2f7f2] dark:bg-[#0a150a]
+      "
+      >
         <SiteHeader />
+
         <div className="flex flex-1 flex-col">
-          <div className="flex flex-1 flex-col">
-            <div className="flex flex-col">
-              <div className="bg-gradient-to-br from-slate-50 via-violet-50/40 to-blue-50/30 dark:from-slate-950 dark:via-violet-950/20 dark:to-slate-900 min-h-screen p-4 sm:p-5">
-                {children}
-              </div>
-            </div>
+          {/* page canvas — warm cream (light) / deep forest (dark) */}
+          <div
+            className="
+            min-h-screen p-4 sm:p-5
+            bg-[#f0f7f0] dark:bg-[#0a150a]
+          "
+          >
+            {children}
           </div>
         </div>
       </SidebarInset>

@@ -197,7 +197,7 @@ export default function LoginPage() {
                 <FormField
                   control={form.control}
                   name="email"
-                  render={({ field }: any) => (
+                  render={({ field }) => (
                     <FormItem>
                       <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                         Email Address
@@ -221,7 +221,7 @@ export default function LoginPage() {
                 <FormField
                   control={form.control}
                   name="password"
-                  render={({ field }: any) => (
+                  render={({ field }) => (
                     <FormItem>
                       <div className="flex items-center justify-between">
                         <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
@@ -265,7 +265,7 @@ export default function LoginPage() {
                 <FormField
                   control={form.control}
                   name="remember"
-                  render={({ field }: any) => (
+                  render={({ field }) => (
                     <FormItem className="flex items-center gap-2.5 space-y-0">
                       <FormControl>
                         <Checkbox
@@ -318,7 +318,7 @@ export default function LoginPage() {
         </div>
 
         {/* ── RIGHT PANEL — Branded visual ── */}
-        <div className="hidden lg:flex relative flex-1 bg-gradient-to-br from-primary via-primary/90 to-violet-700 flex-col justify-end p-10 overflow-hidden">
+        <div className="hidden lg:flex relative flex-1 bg-linear-to-br from-primary via-primary/90 to-violet-700 flex-col justify-end p-10 overflow-hidden">
           {/* Decorative blobs */}
           <div className="pointer-events-none absolute -top-24 -right-24 size-80 rounded-full bg-white/10 blur-3xl" />
           <div className="pointer-events-none absolute top-1/3 -left-10 size-48 rounded-full bg-white/8 blur-2xl" />

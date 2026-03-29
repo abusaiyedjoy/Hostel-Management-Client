@@ -59,22 +59,36 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar
-      className="shadow-[6px_0_20px_rgba(0,0,0,0.08)] dark:shadow-[6px_0_20px_rgba(0,0,0,0.3)]"
       collapsible="offcanvas"
+      className="
+        border-r border-[#c8ddc8] dark:border-[#1a3a1a]
+        bg-[#fafdf8] dark:bg-[#0d1a0d]
+        shadow-[4px_0_20px_rgba(20,60,20,0.08)] dark:shadow-[4px_0_20px_rgba(0,0,0,0.4)]
+      "
       {...props}
     >
-      <SidebarHeader className="border-b border-border">
+      {/* ── Logo ── */}
+      <SidebarHeader className="border-b border-[#c8ddc8] dark:border-[#1a3a1a] px-1">
         <SidebarMenu>
           <SidebarMenuItem>
-            <a href="/dashboard" className="flex items-center gap-3 px-2 py-3">
-              <div className="flex size-9 items-center justify-center rounded-xl bg-violet-600 shadow-md shadow-violet-200 dark:shadow-violet-900/40">
+            <a
+              href="/dashboard"
+              className="flex items-center gap-3 px-3 py-3.5"
+            >
+              <div
+                className="
+                flex size-9 items-center justify-center rounded-xl
+                bg-[#1e4d2b] dark:bg-[#2a6e3a]
+                shadow-md shadow-[rgba(20,70,30,0.35)] dark:shadow-[rgba(0,0,0,0.4)]
+              "
+              >
                 <BuildingIcon className="size-5 text-white" />
               </div>
               <div>
-                <p className="text-base font-bold text-foreground leading-none">
+                <p className="text-base font-bold leading-none text-[#1a2e1a] dark:text-[#c8ecc8]">
                   HostelHub
                 </p>
-                <p className="text-[11px] text-muted-foreground mt-0.5">
+                <p className="text-[11px] mt-0.5 text-[#5a7a5a] dark:text-[#6a9a6a]">
                   Management System
                 </p>
               </div>
@@ -83,13 +97,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
 
+      {/* ── Nav ── */}
       <SidebarContent className="px-2 mt-2">
         <NavMain items={data.navMain} />
       </SidebarContent>
 
-      {/* Promo card at bottom – mirrors the image's "Share your recipe" card */}
-      <div className="mx-3 mb-3 rounded-2xl bg-gradient-to-br from-violet-600 to-violet-800 p-4 text-white shadow-lg shadow-violet-200 dark:shadow-violet-900/40">
-        <p className="text-xs font-semibold opacity-80 uppercase tracking-wider mb-1">
+      {/* ── Promo card ── */}
+      <div
+        className="mx-3 mb-3 rounded-2xl p-4 text-white overflow-hidden relative
+        bg-linear-to-br from-[#1e4d2b] via-[#245c32] to-[#2d7040]
+        shadow-lg shadow-[rgba(20,70,30,0.30)] dark:shadow-[rgba(0,0,0,0.4)]
+      "
+      >
+        {/* decorative blob */}
+        <div className="pointer-events-none absolute -top-6 -right-6 size-20 rounded-full bg-white/10 blur-xl" />
+        <p className="text-[10px] font-semibold opacity-70 uppercase tracking-wider mb-1">
           Pro Tip
         </p>
         <p className="text-sm font-semibold leading-snug mb-3">
@@ -97,16 +119,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </p>
         <a
           href="/dashboard/reports"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white/20 hover:bg-white/30 transition-colors rounded-lg px-3 py-1.5"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white/15 hover:bg-white/25 transition-colors rounded-lg px-3 py-1.5"
         >
           View Reports →
         </a>
       </div>
 
+      {/* ── Logout ── */}
       <SidebarFooter className="p-4">
         <a
           href="#"
-          className="flex items-center gap-2 w-fit px-4 py-2 rounded-lg border border-border text-muted-foreground font-medium hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-foreground transition-colors text-sm"
+          className="
+            flex items-center gap-2 w-fit px-4 py-2 rounded-lg text-sm font-medium transition-colors
+            border border-[#b8d4b8] dark:border-[#243424]
+            text-[#3a6a3a] dark:text-[#6aaa6a]
+            hover:bg-[#e4f2e4] dark:hover:bg-[#162416]
+            hover:text-[#1e4d2b] dark:hover:text-[#4ade80]
+          "
         >
           <LogOutIcon className="size-4" />
           <span>Log out</span>

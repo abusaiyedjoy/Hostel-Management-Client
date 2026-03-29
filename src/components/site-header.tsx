@@ -16,49 +16,56 @@ import {
 } from "lucide-react";
 import { NotificationDropdown } from "./layout/notifications";
 
-// ── theme toggle hook
+// ─── Colour tokens (matches banner images)
+// Light: bg=#f5f0e8 (warm cream) | surface=#fafdf8 | primary=#1e4d2b (forest)
+// Dark:  bg=#0d1a0d              | surface=#111f11  | accent=#4ade80  (bright green)
+
 function useTheme() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
-
   useEffect(() => {
-    const stored = localStorage.getItem("theme") as "light" | "dark" | null;
-    const preferred =
+    const stored = localStorage.getItem("hh-theme") as "light" | "dark" | null;
+    const pref =
       stored ??
       (window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "dark"
         : "light");
-    setTheme(preferred);
-    document.documentElement.classList.toggle("dark", preferred === "dark");
+    setTheme(pref);
+    document.documentElement.classList.toggle("dark", pref === "dark");
   }, []);
-
   const toggle = () => {
     const next = theme === "light" ? "dark" : "light";
     setTheme(next);
-    localStorage.setItem("theme", next);
+    localStorage.setItem("hh-theme", next);
     document.documentElement.classList.toggle("dark", next === "dark");
   };
-
   return { theme, toggle };
 }
 
-function ProfileDropdown({ onClose }: { onClose: () => void }) {
+function ProfileDropdown() {
   return (
     <div
-      className="absolute right-0 top-[calc(100%+10px)] z-50 w-[260px] rounded-2xl border border-border bg-white dark:bg-slate-900 shadow-xl overflow-hidden"
+      className="absolute right-0 top-[calc(100%+10px)] z-50 w-[260px] rounded-2xl overflow-hidden
+        bg-[#fafdf8] dark:bg-[#111f11]
+        border border-[#c8ddc8] dark:border-[#1e3a1e]
+        shadow-[0_8px_32px_rgba(20,60,20,0.14)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="px-4 pt-4 pb-3 border-b border-border">
+      <div className="px-4 pt-4 pb-3 border-b border-[#c8ddc8] dark:border-[#1e3a1e]">
         <div className="flex items-center gap-3">
           <Avatar className="size-10">
             <AvatarImage src="/avatars/shadcn.jpg" alt="Alice Johnson" />
-            <AvatarFallback className="bg-violet-100 text-violet-600 font-semibold dark:bg-violet-900 dark:text-violet-300">
+            <AvatarFallback className="bg-[#d4edcc] text-[#1e4d2b] font-semibold dark:bg-[#1a3a1a] dark:text-[#6ddc6d]">
               AJ
             </AvatarFallback>
           </Avatar>
           <div>
-            <p className="text-sm font-semibold leading-tight">Alice Johnson</p>
-            <p className="text-xs text-muted-foreground">alice@admin.com</p>
-            <span className="mt-1 inline-flex items-center gap-1 text-[10px] font-medium text-slate-500 border border-slate-200 dark:border-slate-700 rounded-full px-2 py-0.5">
+            <p className="text-sm font-semibold text-[#1a2e1a] dark:text-[#c8ecc8]">
+              Alice Johnson
+            </p>
+            <p className="text-xs text-[#5a7a5a] dark:text-[#6a9a6a]">
+              alice@admin.com
+            </p>
+            <span className="mt-1 inline-flex items-center gap-1 text-[10px] font-medium text-[#2d6b2d] dark:text-[#6ddc6d] border border-[#b8d8b8] dark:border-[#264026] rounded-full px-2 py-0.5">
               <span className="size-1.5 rounded-full bg-emerald-400 inline-block" />
               Super Admin
             </span>
@@ -66,34 +73,36 @@ function ProfileDropdown({ onClose }: { onClose: () => void }) {
         </div>
       </div>
       <div className="py-1.5">
-        <button className="flex w-full items-center gap-3 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
-          <span className="flex size-7 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-violet-100 dark:group-hover:bg-violet-900/50 transition-colors">
-            <UserCircleIcon className="size-3.5 text-slate-500 group-hover:text-violet-600 transition-colors" />
-          </span>
-          <div className="text-left">
-            <p className="font-medium text-foreground leading-none">
-              Profile settings
-            </p>
-            <p className="text-[11px] text-muted-foreground mt-0.5">
-              Manage Your Account
-            </p>
-          </div>
-          <ChevronRightIcon className="ml-auto size-3.5 text-muted-foreground" />
-        </button>
-        <button className="flex w-full items-center gap-3 px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group">
-          <span className="flex size-7 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-violet-100 dark:group-hover:bg-violet-900/50 transition-colors">
-            <Settings2Icon className="size-3.5 text-slate-500 group-hover:text-violet-600 transition-colors" />
-          </span>
-          <div className="text-left">
-            <p className="font-medium text-foreground leading-none">
-              Platform Settings
-            </p>
-            <p className="text-[11px] text-muted-foreground mt-0.5">
-              Configure platform settings
-            </p>
-          </div>
-          <ChevronRightIcon className="ml-auto size-3.5 text-muted-foreground" />
-        </button>
+        {[
+          {
+            Icon: UserCircleIcon,
+            label: "Profile settings",
+            sub: "Manage Your Account",
+          },
+          {
+            Icon: Settings2Icon,
+            label: "Platform Settings",
+            sub: "Configure platform settings",
+          },
+        ].map(({ Icon, label, sub }) => (
+          <button
+            key={label}
+            className="flex w-full items-center gap-3 px-4 py-2.5 text-sm transition-colors group hover:bg-[#eef7ee] dark:hover:bg-[#162416]"
+          >
+            <span className="flex size-7 items-center justify-center rounded-lg bg-[#e4f2e4] dark:bg-[#1a3a1a] group-hover:bg-[#d4ecd4] dark:group-hover:bg-[#1e4a1e] transition-colors">
+              <Icon className="size-3.5 text-[#4a8a4a] dark:text-[#5aaa5a] group-hover:text-[#1e6b1e] dark:group-hover:text-[#4ade80] transition-colors" />
+            </span>
+            <div className="text-left">
+              <p className="font-medium leading-none text-[#1a2e1a] dark:text-[#c8ecc8]">
+                {label}
+              </p>
+              <p className="text-[11px] mt-0.5 text-[#5a7a5a] dark:text-[#6a9a6a]">
+                {sub}
+              </p>
+            </div>
+            <ChevronRightIcon className="ml-auto size-3.5 text-[#8aaa8a] dark:text-[#4a6a4a]" />
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -122,60 +131,78 @@ export function SiteHeader() {
       {(notifOpen || profileOpen) && (
         <div className="fixed inset-0 z-40" onClick={closeAll} />
       )}
-      <header className="flex h-(--header-height) shadow-[0_6px_12px_rgba(0,0,0,0.06)] dark:shadow-[0_6px_12px_rgba(0,0,0,0.3)] shrink-0 items-center gap-2 py-6 border-b bg-white dark:bg-slate-900 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+
+      <header
+        className="
+        flex h-(--header-height) shrink-0 items-center gap-2 py-6
+        bg-[#fafdf8] dark:bg-[#0d1a0d]
+        border-b border-[#c8ddc8] dark:border-[#1a3a1a]
+        shadow-[0_4px_20px_rgba(20,60,20,0.07)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.45)]
+        transition-[width,height] ease-linear
+        group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)
+      "
+      >
         <div className="flex w-full items-center justify-between gap-4 px-4 lg:gap-6 lg:px-6">
           {/* left */}
           <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1" />
+            <SidebarTrigger className="-ml-1 text-[#3a6a3a] dark:text-[#6ddc6d]" />
             <Separator
               orientation="vertical"
-              className="mx-2 data-[orientation=vertical]:h-4 hidden md:block"
+              className="mx-2 data-[orientation=vertical]:h-4 hidden md:block bg-[#c0d8c0] dark:bg-[#243424]"
             />
             <div className="hidden md:flex flex-col">
-              <h1 className="text-base font-semibold whitespace-nowrap text-foreground leading-none">
+              <h1 className="text-base font-semibold whitespace-nowrap leading-none text-[#1a2e1a] dark:text-[#c8ecc8]">
                 Good Morning, Admin 👋
               </h1>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-xs mt-0.5 text-[#5a7a5a] dark:text-[#6a9a6a]">
                 Here's what's happening at your hostel today
               </p>
             </div>
           </div>
 
-          {/* centre search */}
+          {/* search */}
           <div className="flex-1 max-w-md hidden lg:block">
             <div className="relative">
-              <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+              <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-[#7aaa7a] dark:text-[#4a7a4a]" />
               <Input
                 type="search"
                 placeholder="Search rooms, guests, bookings..."
-                className="w-full bg-slate-50 dark:bg-slate-800 pl-9 h-10 rounded-xl border-slate-200 dark:border-slate-700 focus-visible:ring-1 focus-visible:ring-violet-400 text-sm"
+                className="
+                  w-full pl-9 h-10 rounded-xl text-sm
+                  bg-[#edf7ed] dark:bg-[#141f14]
+                  border-[#c0d8c0] dark:border-[#243424]
+                  text-[#1a2e1a] dark:text-[#c8ecc8]
+                  placeholder:text-[#8aaa8a] dark:placeholder:text-[#446044]
+                  focus-visible:ring-1 focus-visible:ring-[#2d7a2d] dark:focus-visible:ring-[#4ade80]
+                  focus-visible:ring-offset-0
+                "
               />
             </div>
           </div>
 
           {/* right actions */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {/* theme toggle */}
             <button
               onClick={toggle}
-              className="flex size-9 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-muted-foreground hover:text-foreground"
               aria-label="Toggle theme"
+              className="flex size-9 items-center justify-center rounded-full transition-colors text-[#4a7a4a] dark:text-[#6ddc6d] hover:bg-[#dff0df] dark:hover:bg-[#162416]"
             >
               {theme === "light" ? (
-                <MoonIcon className="size-4.5" />
+                <MoonIcon className="size-[18px]" />
               ) : (
-                <SunIcon className="size-4.5" />
+                <SunIcon className="size-[18px]" />
               )}
             </button>
 
-            {/* notification bell */}
+            {/* bell */}
             <div className="relative">
               <button
                 onClick={toggleNotif}
-                className="relative flex size-9 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-muted-foreground hover:text-foreground"
+                className="relative flex size-9 items-center justify-center rounded-full transition-colors text-[#4a7a4a] dark:text-[#6ddc6d] hover:bg-[#dff0df] dark:hover:bg-[#162416]"
               >
                 <BellIcon className="size-5" />
-                <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500 border-2 border-white dark:border-slate-900" />
+                <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-red-500 border-2 border-[#fafdf8] dark:border-[#0d1a0d]" />
               </button>
               {notifOpen && (
                 <NotificationDropdown onClose={() => setNotifOpen(false)} />
@@ -186,26 +213,24 @@ export function SiteHeader() {
             <div className="relative">
               <button
                 onClick={toggleProfile}
-                className="flex items-center gap-2.5 rounded-full pl-1 pr-3 py-1 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                className="flex items-center gap-2.5 rounded-full pl-1 pr-3 py-1 transition-colors hover:bg-[#dff0df] dark:hover:bg-[#162416]"
               >
-                <Avatar className="size-8 ring-2 ring-violet-200 dark:ring-violet-700">
+                <Avatar className="size-8 ring-2 ring-[#90c890] dark:ring-[#264026]">
                   <AvatarImage src="/avatars/shadcn.jpg" alt="Johan Smith" />
-                  <AvatarFallback className="bg-violet-100 text-violet-600 text-xs font-bold dark:bg-violet-900 dark:text-violet-300">
+                  <AvatarFallback className="bg-[#d4edcc] text-[#1e4d2b] text-xs font-bold dark:bg-[#1a3a1a] dark:text-[#6ddc6d]">
                     JS
                   </AvatarFallback>
                 </Avatar>
                 <div className="hidden md:flex flex-col items-start">
-                  <span className="text-sm font-semibold leading-none text-foreground">
+                  <span className="text-sm font-semibold leading-none text-[#1a2e1a] dark:text-[#c8ecc8]">
                     Johan Smith
                   </span>
-                  <span className="text-[11px] text-muted-foreground mt-0.5">
+                  <span className="text-[11px] mt-0.5 text-[#5a7a5a] dark:text-[#6a9a6a]">
                     Admin
                   </span>
                 </div>
               </button>
-              {profileOpen && (
-                <ProfileDropdown onClose={() => setProfileOpen(false)} />
-              )}
+              {profileOpen && <ProfileDropdown />}
             </div>
           </div>
         </div>
