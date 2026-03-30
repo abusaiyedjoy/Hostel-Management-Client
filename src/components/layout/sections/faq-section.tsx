@@ -4,16 +4,14 @@ import { useState } from "react";
 import {
   PlusIcon,
   MinusIcon,
-  ArrowRightIcon,
   CalendarCheckIcon,
   PhoneIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    q: "How do I book a room at HostelHub?",
+    q: "How do I book a room at StayNest?",
     a: "You can book directly through our website or mobile app. Select your preferred room type, choose your dates, and complete the reservation in under 2 minutes. No credit card is required to reserve — you pay on arrival.",
   },
   {
@@ -155,59 +153,6 @@ const FaqCtaSection = () => {
               {faqs.map((faq, i) => (
                 <FaqItem key={faq.q} faq={faq} index={i} />
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Banner */}
-      <section className="py-16 sm:py-20 bg-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary/90 to-violet-700 px-6 sm:px-12 py-14 sm:py-16 text-center">
-            {/* Decorative circles */}
-            <div className="pointer-events-none absolute -top-20 -left-20 size-72 rounded-full bg-white/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-16 -right-16 size-60 rounded-full bg-white/10 blur-3xl" />
-            <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-96 rounded-full bg-white/5 blur-3xl" />
-
-            <div className="relative flex flex-col items-center gap-6 max-w-2xl mx-auto">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-xs font-semibold text-white">
-                <span className="size-1.5 rounded-full bg-white animate-pulse" />
-                Rooms available today
-              </span>
-
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">
-                Your perfect stay is one click away
-              </h2>
-
-              <p className="text-white/75 text-base sm:text-lg max-w-lg">
-                Join thousands of guests who trust HostelHub for comfort,
-                safety, and unforgettable experiences.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  asChild
-                  className="w-full sm:w-auto rounded-full bg-white text-primary hover:bg-white/90 font-semibold shadow-lg group"
-                >
-                  <a href="#">
-                    Book your room now
-                    <ArrowRightIcon className="size-4 ml-1 transition-transform duration-200 group-hover:translate-x-0.5" />
-                  </a>
-                </Button>
-                <Button
-                  size="lg"
-                  variant="ghost"
-                  asChild
-                  className="w-full sm:w-auto rounded-full text-white hover:bg-white/15 font-semibold border border-white/30"
-                >
-                  <a href="#">View all rooms</a>
-                </Button>
-              </div>
-
-              <p className="text-white/50 text-xs">
-                No credit card required · Free cancellation · 24/7 support
-              </p>
             </div>
           </div>
         </div>

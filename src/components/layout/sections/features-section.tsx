@@ -65,7 +65,7 @@ const FeaturesSection = () => {
             <span className="text-primary">perfect stay</span>
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            We've built HostelHub around what guests actually need — comfort,
+            We've built StayNest around what guests actually need — comfort,
             safety, and zero hassle from booking to checkout.
           </p>
         </div>

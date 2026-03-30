@@ -64,15 +64,15 @@ const HeroSectionPage = () => {
         </section>
 
         {/* 4. Stats / Social Proof */}
-        <StatsSection />
+        {/* <StatsSection /> */}
+
+        {/* 6. FAQ + Final CTA */}
+        <FaqCtaSection />
 
         {/* 5. Testimonials */}
         <section id="testimonials">
           <TestimonialsSection />
         </section>
-
-        {/* 6. FAQ + Final CTA */}
-        <FaqCtaSection />
       </main>
     </div>
   );

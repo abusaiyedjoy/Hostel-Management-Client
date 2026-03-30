@@ -75,7 +75,7 @@ function HeroSection() {
               <span className="text-[#86dca0]">place to stay</span>
             </h1>
             <p className="text-white/70 text-lg leading-relaxed max-w-lg">
-              HostelHub was built on a simple belief — every traveller, student,
+              StayNest was built on a simple belief — every traveller, student,
               and professional deserves a safe, clean, and welcoming place to
               call home, even if just for a night.
             </p>
@@ -223,7 +223,7 @@ function TimelineSection() {
     {
       year: "2017",
       title: "First Location",
-      body: "HostelHub opened its very first 20-room property in Dhanmondi, Dhaka, with a waitlist on day one.",
+      body: "StayNest opened its very first 20-room property in Dhanmondi, Dhaka, with a waitlist on day one.",
     },
     {
       year: "2019",
@@ -242,7 +242,7 @@ function TimelineSection() {
     },
     {
       year: "2025",
-      title: "HostelHub Pro",
+      title: "StayNest Pro",
       body: "Launched our full management dashboard — giving property owners the tools to run hostels with confidence.",
     },
   ];
@@ -319,7 +319,7 @@ function TeamSection() {
       name: "Nadia Hossain",
       role: "Co-Founder & CTO",
       avatar: "https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-56.png",
-      bio: "Built the HostelHub booking engine from scratch. Previously engineered platforms for 2 major travel startups.",
+      bio: "Built the StayNest booking engine from scratch. Previously engineered platforms for 2 major travel startups.",
       twitter: "#",
       linkedin: "#",
     },
@@ -351,9 +351,7 @@ function TeamSection() {
           <SectionBadge label="The People" />
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1a2e1a] dark:text-[#c8ecc8]">
             Meet the team behind{" "}
-            <span className="text-[#1e4d2b] dark:text-[#4ade80]">
-              HostelHub
-            </span>
+            <span className="text-[#1e4d2b] dark:text-[#4ade80]">StayNest</span>
           </h2>
           <p className="mt-4 text-[#5a7a5a] dark:text-[#6a9a6a]">
             Small team, big hearts. Every person here is obsessed with one thing

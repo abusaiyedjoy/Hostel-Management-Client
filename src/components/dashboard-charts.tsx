@@ -296,7 +296,7 @@ export function DashboardCharts() {
               contentStyle={tooltipStyle}
               formatter={(
                 v: string | number | ReadonlyArray<string | number> | undefined,
-              ) => [`$${v.toLocaleString()}`]}
+              ) => [`$${v?.toLocaleString()}`]}
             />
             <Bar
               dataKey="revenue"

@@ -17,7 +17,7 @@ const testimonials = [
     avatar: "https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-56.png",
     rating: 5,
     review:
-      "Staying at HostelHub was genuinely the best decision I made this semester. The dorm was clean, quiet, and the Wi-Fi actually worked! The staff helped me sort out my room assignment in minutes. Highly recommend to any student.",
+      "Staying at StayNest was genuinely the best decision I made this semester. The dorm was clean, quiet, and the Wi-Fi actually worked! The staff helped me sort out my room assignment in minutes. Highly recommend to any student.",
     tag: "Student Stay",
   },
   {

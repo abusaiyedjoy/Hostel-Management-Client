@@ -86,7 +86,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </div>
               <div>
                 <p className="text-base font-bold leading-none text-[#1a2e1a] dark:text-[#c8ecc8]">
-                  HostelHub
+                  StayNest
                 </p>
                 <p className="text-[11px] mt-0.5 text-[#5a7a5a] dark:text-[#6a9a6a]">
                   Management System
