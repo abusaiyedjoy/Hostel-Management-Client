@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import { Provider } from "react-redux";
-import { persistor, store } from "../redux/store";
+// import { persistor, store } from "../redux/store";
 import { Toaster } from "sonner";
-import { PersistGate } from "redux-persist/integration/react";
+// import { PersistGate } from "redux-persist/integration/react";
+import ReduxProvider from "@/redux/reduxProvider";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -12,11 +13,11 @@ export interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Toaster richColors position="top-center" />
-        {children}
-      </PersistGate>
-    </Provider>
+    <ReduxProvider>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+      <Toaster richColors position="top-center" />
+      {children}
+      {/* </PersistGate> */}
+    </ReduxProvider>
   );
 }

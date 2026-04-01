@@ -1,0 +1,29 @@
+import { baseApi } from "../../api/baseApi";
+
+export const authApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    login: builder.mutation({
+      query: (data) => ({
+        url: "/auth/login",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    register: builder.mutation({
+      query: (data) => ({
+        url: "/auth/register",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    getProfile: builder.query({
+      query: () => "/auth/me",
+      providesTags: ["User"],
+    }),
+  }),
+});
+
+export const { useLoginMutation, useRegisterMutation, useGetProfileQuery } =
+  authApi;
