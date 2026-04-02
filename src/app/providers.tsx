@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 // import { persistor, store } from "../redux/store";
 import { Toaster } from "sonner";
 // import { PersistGate } from "redux-persist/integration/react";
-import ReduxProvider from "@/redux/reduxProvider";
+import ReduxProvider from "@/redux/store/reduxProvider";
 
 export interface ProvidersProps {
   children: React.ReactNode;
