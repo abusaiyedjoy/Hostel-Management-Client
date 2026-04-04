@@ -1,4 +1,3 @@
-import ForgotPasswordForm from "@/components/Forms/ForgotPasswordForm";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Card,

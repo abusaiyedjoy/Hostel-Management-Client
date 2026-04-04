@@ -1,5 +1,3 @@
-import ChangePasswordForm from "@/components/Forms/ChangePasswordForm";
-
 // Dynamic SSR - authenticated page
 export const dynamic = "force-dynamic";
 
