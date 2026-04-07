@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Review App",
-  description: "Review App",
+  title: "StayNest",
+  description: "StayNest - A place for everyone to stay",
 };
 
 export default function RootLayout({

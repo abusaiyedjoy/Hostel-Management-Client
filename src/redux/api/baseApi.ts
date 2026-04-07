@@ -9,7 +9,8 @@ import {
 import { logout, setCredentials } from "../features/auth/authSlice";
 import { RootState } from "../store/store";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
 // ─── Base query with auth header ─────────────────────────────────────────────
 const rawBaseQuery = fetchBaseQuery({
