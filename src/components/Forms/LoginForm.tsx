@@ -1,29 +1,94 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { MailIcon, LockIcon, EyeIcon, EyeOffIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { MailIcon, LockIcon, EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
-// import { loginUser } from "@/services/auth/loginUser";
-import { Button } from "./../ui/button";
-import { Input } from "./../ui/input";
-import { Field, FieldGroup, FieldLabel } from "./../ui/field";
-// import InputFieldError from "./shared/InputFieldError";
+import { useLoginMutation, setCredentials, useAppDispatch } from "@/redux";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
+// ─── Validation schema (mirrors backend loginSchema) ──────────────────────────
+const loginSchema = z.object({
+  email: z
+    .string({ error: "Email is required" })
+    .email("Invalid email address")
+    .toLowerCase()
+    .trim(),
+  password: z
+    .string({ error: "Password is required" })
+    .min(1, "Password is required"),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
+// ─── Role → dashboard path (UPPERCASE roles matching backend) ─────────────────
+const ROLE_DASHBOARD: Record<string, string> = {
+  ADMIN: "/dashboard",
+  MESS_MANAGER: "/mess/dashboard",
+  MEAL_MANAGER: "/meal/dashboard",
+  MEMBER: "/member/dashboard",
+};
+
+// ─── Component ────────────────────────────────────────────────────────────────
 const LoginForm = ({ redirect }: { redirect?: string }) => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const [showPass, setShowPass] = useState(false);
-  //   const [state, formAction, isPending] = useActionState(loginUser, null);
 
-  //   useEffect(() => {
-  //     if (state && !state.success && state.message) {
-  //       toast.error(state.message);
-  //     }
-  //   }, [state]);
+  // RTK Query mutation — auto handles loading state
+  const [login, { isLoading }] = useLoginMutation();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (values: LoginFormValues) => {
+    try {
+      // Call POST /auth/login
+      const response = await login(values).unwrap();
+
+      // Backend response shape:
+      // { success: true, message: "Login successful", meta: null,
+      //   data: { user: {...}, accessToken: "eyJ..." } }
+      const { user, accessToken } = response.data;
+
+      // Save to Redux store (+ localStorage via store.subscribe)
+      dispatch(
+        setCredentials({
+          user,
+          token: accessToken, // backend calls it "accessToken"
+          refreshToken: null, // backend doesn't return refreshToken in body
+        }),
+      );
+
+      toast.success(`Welcome back, ${user.name}!`);
+
+      // Redirect: use ?redirect param if present, else role dashboard
+      const destination = redirect || ROLE_DASHBOARD[user.role] || "/dashboard";
+      router.push(destination);
+      router.refresh(); // clear Next.js server cache
+    } catch (err: any) {
+      // RTK Query wraps error: { status, data: { success, message } }
+      const message =
+        err?.data?.message || err?.error || "Login failed. Please try again.";
+      toast.error(message);
+    }
+  };
 
   return (
     <div className="flex-1 bg-background flex flex-col justify-center p-8 sm:p-10 lg:p-12">
       <div className="flex flex-col gap-6 max-w-sm w-full mx-auto">
+        {/* Header */}
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
             Welcome back
@@ -33,10 +98,13 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
           </p>
         </div>
 
-        {/* Social buttons in one line */}
+        {/* Social buttons */}
         <div className="grid grid-cols-3 gap-3">
           {/* Google */}
-          <button className="flex items-center justify-center rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors h-11">
+          <button
+            type="button"
+            className="flex items-center justify-center rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors h-11"
+          >
             <svg className="size-5" viewBox="0 0 24 24">
               <path
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -59,7 +127,10 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
           </button>
 
           {/* Facebook */}
-          <button className="flex items-center justify-center rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors h-11">
+          <button
+            type="button"
+            className="flex items-center justify-center rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors h-11"
+          >
             <svg className="size-6" viewBox="0 0 24 24" fill="#1877F2">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
             </svg>
@@ -67,7 +138,10 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
           </button>
 
           {/* Apple */}
-          <button className="flex items-center justify-center rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors h-11 text-foreground">
+          <button
+            type="button"
+            className="flex items-center justify-center rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors h-11 text-foreground"
+          >
             <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
             </svg>
@@ -85,85 +159,110 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
         </div>
 
         {/* Login Form */}
-        <form
-        // action={formAction}
-        >
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
           {redirect && <input type="hidden" name="redirect" value={redirect} />}
 
-          <FieldGroup className="gap-4">
-            {/* Email Field */}
-            <Field>
-              <FieldLabel htmlFor="email">Email Address</FieldLabel>
+          <div className="flex flex-col gap-4">
+            {/* Email */}
+            <div className="flex flex-col gap-1.5">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium text-foreground"
+              >
+                Email Address
+              </label>
               <div className="relative">
-                <MailIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                <MailIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
                 <Input
                   id="email"
-                  name="email"
                   type="email"
                   placeholder="you@example.com"
-                  className="pl-10 h-11 rounded-xl bg-muted/20 border-border"
+                  autoComplete="email"
+                  disabled={isLoading}
+                  className={`pl-10 h-11 rounded-xl bg-muted/20 border-border ${
+                    errors.email
+                      ? "border-destructive focus-visible:ring-destructive"
+                      : ""
+                  }`}
+                  {...register("email")}
                 />
               </div>
-              {/* <InputFieldError field="email" state={state} /> */}
-            </Field>
+              {errors.email && (
+                <p className="text-xs text-destructive mt-0.5">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
 
-            {/* Password Field */}
-            <Field>
+            {/* Password */}
+            <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
-                <FieldLabel htmlFor="password">Password</FieldLabel>
+                <label
+                  htmlFor="password"
+                  className="text-sm font-medium text-foreground"
+                >
+                  Password
+                </label>
                 <Link
                   href="/forgot-password"
-                  //   size="sm"
                   className="text-xs text-primary font-semibold hover:underline"
                 >
                   Forgot?
                 </Link>
               </div>
-
               <div className="relative">
-                <LockIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+                <LockIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
                 <Input
                   id="password"
-                  name="password"
                   type={showPass ? "text" : "password"}
                   placeholder="••••••••"
-                  className="pl-10 pr-10 h-11 rounded-xl bg-muted/20 border-border"
+                  autoComplete="current-password"
+                  disabled={isLoading}
+                  className={`pl-10 pr-10 h-11 rounded-xl bg-muted/20 border-border ${
+                    errors.password
+                      ? "border-destructive focus-visible:ring-destructive"
+                      : ""
+                  }`}
+                  {...register("password")}
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPass(!showPass)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  onClick={() => setShowPass((v) => !v)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  tabIndex={-1}
                 >
                   {showPass ? <EyeOffIcon size={16} /> : <EyeIcon size={16} />}
                 </button>
               </div>
-              {/* <InputFieldError field="password" state={state} /> */}
-            </Field>
+              {errors.password && (
+                <p className="text-xs text-destructive mt-0.5">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
 
-            {/* Action Buttons */}
+            {/* Submit */}
             <div className="mt-2 space-y-4">
               <Button
                 type="submit"
-                className="w-full h-11 rounded-xl font-bold shadow-lg shadow-primary/20"
-                // disabled={isPending}
+                disabled={isLoading}
+                className="w-full h-11 rounded-xl font-bold shadow-lg shadow-primary/20 gap-2"
               >
-                {/* {isPending ? "Signing in..." : "Sign In"} */}
-                Sign In
+                {isLoading && <Loader2 size={16} className="animate-spin" />}
+                {isLoading ? "Signing in…" : "Sign In"}
               </Button>
 
-              <div className="text-center space-y-1">
-                <p className="text-sm text-muted-foreground">
-                  Don&apos;t have an account?{" "}
-                  <Link
-                    href="/register"
-                    className="text-primary font-bold hover:underline"
-                  >
-                    Create account
-                  </Link>
-                </p>
-              </div>
+              <p className="text-center text-sm text-muted-foreground">
+                Don&apos;t have an account?{" "}
+                <Link
+                  href="/register"
+                  className="text-primary font-bold hover:underline"
+                >
+                  Create account
+                </Link>
+              </p>
             </div>
-          </FieldGroup>
+          </div>
         </form>
       </div>
     </div>

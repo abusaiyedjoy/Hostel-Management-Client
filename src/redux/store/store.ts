@@ -4,14 +4,13 @@ import { baseApi } from "../api/baseApi";
 import authReducer from "../features/auth/authSlice";
 import uiReducer from "../features/ui/uiSlice";
 
-// ─── Root reducer ─────────────────────────────────────────────────────────────
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   auth: authReducer,
   ui: uiReducer,
 });
 
-// ─── localStorage persistence helpers ────────────────────────────────────────
+// ─── localStorage persistence ─────────────────────────────────────────────────
 const AUTH_STORAGE_KEY = "staynest_auth";
 
 function loadAuthFromStorage() {
@@ -27,29 +26,32 @@ function loadAuthFromStorage() {
 function saveAuthToStorage(state: ReturnType<typeof rootReducer>) {
   if (typeof window === "undefined") return;
   try {
-    const { user, token, refreshToken, isAuthenticated } = state.auth;
+    const { user, token, isAuthenticated } = state.auth;
+    // refreshToken omitted — backend uses httpOnly cookie for refresh
     localStorage.setItem(
       AUTH_STORAGE_KEY,
-      JSON.stringify({ user, token, refreshToken, isAuthenticated }),
+      JSON.stringify({ user, token, isAuthenticated }),
     );
   } catch {
-    // ignore write errors
+    // ignore
   }
 }
 
-// ─── Store ────────────────────────────────────────────────────────────────────
 export const store = configureStore({
   reducer: rootReducer,
   preloadedState: {
     auth: {
-      ...(loadAuthFromStorage() ?? {}),
+      user: null,
+      token: null,
+      refreshToken: null,
+      isAuthenticated: false,
       isLoading: false,
+      ...(loadAuthFromStorage() ?? {}),
     },
   } as any,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // RTK Query uses non-serializable values internally
         ignoredActions: [
           "api/executeQuery/fulfilled",
           "api/executeMutation/fulfilled",
@@ -59,11 +61,9 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV !== "production",
 });
 
-// Subscribe: persist auth state on every change
 store.subscribe(() => {
   saveAuthToStorage(store.getState());
 });
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

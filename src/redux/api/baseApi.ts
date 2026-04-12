@@ -6,13 +6,12 @@ import {
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
-import { logout, setCredentials } from "../features/auth/authSlice";
+import { logout, setToken } from "../features/auth/authSlice";
 import { RootState } from "../store/store";
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:7000/api";
 
-// ─── Base query with auth header ─────────────────────────────────────────────
+// ─── Raw base query with Bearer token ────────────────────────────────────────
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   prepareHeaders: (headers, { getState }) => {
@@ -20,12 +19,15 @@ const rawBaseQuery = fetchBaseQuery({
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
-    headers.set("Content-Type", "application/json");
+    // Do NOT set Content-Type here — fetchBaseQuery sets it automatically
+    // and setting it manually breaks multipart/form-data uploads
     return headers;
   },
 });
 
-// ─── Re-auth wrapper: auto-refresh on 401 ────────────────────────────────────
+// ─── Re-auth wrapper ──────────────────────────────────────────────────────────
+// Your backend uses POST /auth/new-access-token (seen in Postman sidebar)
+// to get a new access token. Adjust URL if needed.
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,
@@ -34,24 +36,25 @@ const baseQueryWithReauth: BaseQueryFn<
   let result = await rawBaseQuery(args, api, extraOptions);
 
   if (result.error?.status === 401) {
-    const state = api.getState() as RootState;
-    const refreshToken = state.auth.refreshToken;
+    // Try to refresh — backend route: POST /auth/new-access-token
+    const refreshResult = await rawBaseQuery(
+      {
+        url: "/auth/new-access-token",
+        method: "POST",
+        // Your backend may use httpOnly cookie for refresh token
+        // If so, no body needed — credentials are sent automatically
+        credentials: "include",
+      },
+      api,
+      extraOptions,
+    );
 
-    if (refreshToken) {
-      const refreshResult = await rawBaseQuery(
-        {
-          url: "/auth/refresh",
-          method: "POST",
-          body: { refreshToken },
-        },
-        api,
-        extraOptions,
-      );
-
-      if (refreshResult.data) {
-        const { token, user } = refreshResult.data as any;
-        api.dispatch(setCredentials({ user, token, refreshToken }));
-        // Retry original request with new token
+    if (refreshResult.data) {
+      // Backend wraps response: { success, message, data: { accessToken } }
+      const newToken = (refreshResult.data as any)?.data?.accessToken;
+      if (newToken) {
+        api.dispatch(setToken(newToken));
+        // Retry the original request with new token
         result = await rawBaseQuery(args, api, extraOptions);
       } else {
         api.dispatch(logout());
@@ -64,7 +67,7 @@ const baseQueryWithReauth: BaseQueryFn<
   return result;
 };
 
-// ─── Root API — all endpoints injected via injectEndpoints ───────────────────
+// ─── Root API ─────────────────────────────────────────────────────────────────
 export const baseApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
@@ -79,6 +82,7 @@ export const baseApi = createApi({
     "Dashboard",
     "Rooms",
     "Notifications",
+    "Mess",
   ],
   endpoints: () => ({}),
 });

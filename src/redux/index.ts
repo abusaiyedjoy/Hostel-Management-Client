@@ -14,7 +14,10 @@ export {
   useGetProfileQuery,
   useUpdateProfileMutation,
   useChangePasswordMutation,
-  useRefreshTokenMutation,
+  useSendVerifyOtpMutation,
+  useVerifyAccountMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } from "./features/auth/authApi";
 
 export {

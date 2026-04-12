@@ -22,6 +22,9 @@ import {
   LogOutIcon,
   BuildingIcon,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { logout, useLogoutApiMutation } from "@/redux";
 
 const data = {
   navMain: [
@@ -57,6 +60,27 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [logoutApi, { isLoading }] = useLogoutApiMutation();
+
+  const handleLogout = async () => {
+    try {
+      await logoutApi().unwrap();
+
+      // ✅ clear redux auth state
+      dispatch(logout());
+
+      // ✅ redirect
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+
+      // fallback (still logout locally)
+      dispatch(logout());
+      router.push("/login");
+    }
+  };
   return (
     <Sidebar
       collapsible="offcanvas"
@@ -127,19 +151,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       {/* ── Logout ── */}
       <SidebarFooter className="p-4">
-        <a
-          href="#"
-          className="
-            flex items-center gap-2 w-fit px-4 py-2 rounded-lg text-sm font-medium transition-colors
-            border border-[#b8d4b8] dark:border-[#243424]
-            text-[#3a6a3a] dark:text-[#6aaa6a]
-            hover:bg-[#e4f2e4] dark:hover:bg-[#162416]
-            hover:text-[#1e4d2b] dark:hover:text-[#4ade80]
-          "
+        <button
+          onClick={handleLogout}
+          disabled={isLoading}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border
+          hover:bg-[#e4f2e4] dark:hover:bg-[#162416]"
         >
           <LogOutIcon className="size-4" />
-          <span>Log out</span>
-        </a>
+          {isLoading ? "Logging out..." : "Log out"}
+        </button>
       </SidebarFooter>
     </Sidebar>
   );
