@@ -15,31 +15,8 @@ import {
   MoonIcon,
 } from "lucide-react";
 import { NotificationDropdown } from "./layout/notifications";
-
-// ─── Colour tokens (matches banner images)
-// Light: bg=#f5f0e8 (warm cream) | surface=#fafdf8 | primary=#1e4d2b (forest)
-// Dark:  bg=#0d1a0d              | surface=#111f11  | accent=#4ade80  (bright green)
-
-function useTheme() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  useEffect(() => {
-    const stored = localStorage.getItem("hh-theme") as "light" | "dark" | null;
-    const pref =
-      stored ??
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
-    setTheme(pref);
-    document.documentElement.classList.toggle("dark", pref === "dark");
-  }, []);
-  const toggle = () => {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    localStorage.setItem("hh-theme", next);
-    document.documentElement.classList.toggle("dark", next === "dark");
-  };
-  return { theme, toggle };
-}
+import { useTheme } from "next-themes";
+import { Button } from "./ui/button";
 
 function ProfileDropdown() {
   return (
@@ -111,7 +88,16 @@ function ProfileDropdown() {
 export function SiteHeader() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const { theme, toggle } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+
+  function toggleTheme() {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  }
+  // Must wait for mount before reading theme to avoid hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const closeAll = () => {
     setNotifOpen(false);
@@ -182,18 +168,25 @@ export function SiteHeader() {
 
           {/* right actions */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* theme toggle */}
-            <button
-              onClick={toggle}
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 rounded-full"
+              onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="flex size-9 items-center justify-center rounded-full transition-colors text-[#4a7a4a] dark:text-[#6ddc6d] hover:bg-[#dff0df] dark:hover:bg-[#162416]"
             >
-              {theme === "light" ? (
-                <MoonIcon className="size-[18px]" />
+              {/* Render nothing until mounted to avoid hydration mismatch */}
+              {mounted ? (
+                resolvedTheme === "dark" ? (
+                  <SunIcon className="h-4 w-4" />
+                ) : (
+                  <MoonIcon className="h-4 w-4" />
+                )
               ) : (
-                <SunIcon className="size-[18px]" />
+                <span className="h-4 w-4" />
               )}
-            </button>
+            </Button>
 
             {/* bell */}
             <div className="relative">

@@ -647,7 +647,7 @@ export function DataTable({ config, rows, onAction, tabs }: DataTableProps) {
   );
 
   return (
-    <Card className="border border-border shadow-sm bg-card text-card-foreground px-4 lg:px-6">
+    <Card className="rounded-2xl p-5 border border-border shadow-sm bg-card text-card-foreground px-4 lg:px-6">
       <CardHeader className="border-b border-border px-5">
         <CardTitle className="text-base font-semibold text-foreground">
           {config.title}

@@ -13,15 +13,11 @@ import {
 import {
   LayoutDashboardIcon,
   UsersIcon,
-  BedDoubleIcon,
-  CalendarCheckIcon,
-  WrenchIcon,
   CreditCardIcon,
-  ClipboardListIcon,
-  MessageSquareIcon,
   LogOutIcon,
   BuildingIcon,
   SettingsIcon,
+  UtensilsCrossedIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
@@ -30,30 +26,34 @@ import Image from "next/image";
 
 const data = {
   navMain: [
-    { title: "Dashboard", url: "/dashboard", icon: <LayoutDashboardIcon /> },
     {
-      title: "Users",
-      url: "/dashboard/users",
+      title: "Dashboard",
+      url: "/admin/dashboard",
+      icon: <LayoutDashboardIcon />,
+    },
+    {
+      title: "Members",
+      url: "/admin/dashboard/members",
       icon: <UsersIcon />,
     },
     {
       title: "Messes",
-      url: "/dashboard/messes",
+      url: "/admin/dashboard/messes",
       icon: <BuildingIcon />,
     },
     {
-      title: "Maintenance",
-      url: "/dashboard/maintenance",
-      icon: <WrenchIcon />,
+      title: "Meals",
+      url: "/admin/dashboard/meals",
+      icon: <UtensilsCrossedIcon />,
     },
     {
-      title: "Reports",
-      url: "/dashboard/reports",
-      icon: <ClipboardListIcon />,
+      title: "Payments",
+      url: "/admin/dashboard/payments",
+      icon: <CreditCardIcon />,
     },
     {
       title: "Settings",
-      url: "/dashboard/settings",
+      url: "/admin/dashboard/settings",
       icon: <SettingsIcon />,
     },
   ],
@@ -85,14 +85,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar
       collapsible="offcanvas"
       className="
-        border-r border-[#c8ddc8] dark:border-[#1a3a1a]
-        bg-[#fafdf8] dark:bg-[#0d1a0d]
-        shadow-[4px_0_20px_rgba(20,60,20,0.08)] dark:shadow-[4px_0_20px_rgba(0,0,0,0.4)]
-      "
+    border-r border-[#c8ddc8] dark:border-[#1a3a1a]
+    bg-[#fafdf8] dark:bg-[#0d1a0d]
+    shadow-[0_4px_20px_rgba(20,60,20,0.07)] dark:shadow-[0_4px_20px_rgba(0,0,0,0.45)]
+  "
       {...props}
     >
       {/* ── Logo ── */}
-      <SidebarHeader className="border-b border-[#c8ddc8] dark:border-[#1a3a1a] px-1">
+      <SidebarHeader className="h-(--header-height) border-b border-[#c8ddc8] dark:border-[#1a3a1a]">
         <SidebarMenu>
           <SidebarMenuItem>
             <a href="/" className="flex items-center gap-1 px-3 py-3.5">
@@ -110,36 +110,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
 
-      {/* ── Promo card ── */}
-      <div
-        className="mx-3 mb-3 rounded-2xl p-4 text-white overflow-hidden relative
-        bg-linear-to-br from-[#1e4d2b] via-[#245c32] to-[#2d7040]
-        shadow-lg shadow-[rgba(20,70,30,0.30)] dark:shadow-[rgba(0,0,0,0.4)]
-      "
-      >
-        {/* decorative blob */}
-        <div className="pointer-events-none absolute -top-6 -right-6 size-20 rounded-full bg-white/10 blur-xl" />
-        <p className="text-[10px] font-semibold opacity-70 uppercase tracking-wider mb-1">
-          Pro Tip
-        </p>
-        <p className="text-sm font-semibold leading-snug mb-3">
-          Generate your monthly occupancy report
-        </p>
-        <a
-          href="/dashboard/reports"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold bg-white/15 hover:bg-white/25 transition-colors rounded-lg px-3 py-1.5"
-        >
-          View Reports →
-        </a>
-      </div>
-
       {/* ── Logout ── */}
       <SidebarFooter className="p-4">
         <button
           onClick={handleLogout}
           disabled={isLoading}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border
-          hover:bg-[#e4f2e4] dark:hover:bg-[#162416]"
+          className="
+    flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium border
+    border-[#c8ddc8] dark:border-[#1a3a1a]
+    text-[#1a2e1a] dark:text-[#c8ecc8]
+    hover:bg-[#dff0df] dark:hover:bg-[#162416]
+    transition-colors
+  "
         >
           <LogOutIcon className="size-4" />
           {isLoading ? "Logging out..." : "Log out"}
