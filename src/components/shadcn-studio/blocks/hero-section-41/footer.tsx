@@ -12,8 +12,7 @@ import {
 
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-
-import StayNestLogo from "@/assets/svg/bistro-logo";
+import Image from "next/image";
 
 type FooterLink = {
   label: string;
@@ -89,7 +88,7 @@ const Footer = ({ className }: { className?: string }) => {
           <div className="flex flex-col gap-6 lg:col-span-2">
             {/* Logo */}
             <a href="#" className="flex items-center gap-3 w-fit">
-              <StayNestLogo />
+              <Image src="/Logo.png" alt="Logo" width={40} height={40} />
               <span className="text-primary text-[20px] font-semibold">
                 StayNest
               </span>

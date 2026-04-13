@@ -1,10 +1,7 @@
-// src/redux/features/auth/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// ── Matches backend Role enum exactly (UPPERCASE) ─────────────────────────────
 export type Role = "ADMIN" | "MESS_MANAGER" | "MEAL_MANAGER" | "MEMBER";
 
-// ── Matches backend safeUserSelect + login response exactly ───────────────────
 export interface MemberProfile {
   id: string;
   registrationNo?: string;
@@ -110,7 +107,7 @@ const authSlice = createSlice({
 export const { setCredentials, updateUser, setToken, logout, setLoading } =
   authSlice.actions;
 
-// ─── Selectors ────────────────────────────────────────────────────────────────
+// ─── Selectors
 export const selectCurrentUser = (s: { auth: AuthState }) => s.auth.user;
 export const selectCurrentToken = (s: { auth: AuthState }) => s.auth.token;
 export const selectIsAuthenticated = (s: { auth: AuthState }) =>

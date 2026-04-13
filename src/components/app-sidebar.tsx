@@ -21,26 +21,26 @@ import {
   MessageSquareIcon,
   LogOutIcon,
   BuildingIcon,
+  SettingsIcon,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { logout, useLogoutApiMutation } from "@/redux";
+import Image from "next/image";
 
 const data = {
   navMain: [
     { title: "Dashboard", url: "/dashboard", icon: <LayoutDashboardIcon /> },
     {
-      title: "Room Management",
-      url: "/dashboard/rooms",
-      icon: <BedDoubleIcon />,
+      title: "Users",
+      url: "/dashboard/users",
+      icon: <UsersIcon />,
     },
     {
-      title: "Bookings",
-      url: "/dashboard/bookings",
-      icon: <CalendarCheckIcon />,
+      title: "Messes",
+      url: "/dashboard/messes",
+      icon: <BuildingIcon />,
     },
-    { title: "Guests", url: "/dashboard/guests", icon: <UsersIcon /> },
-    { title: "Payments", url: "/dashboard/payments", icon: <CreditCardIcon /> },
     {
       title: "Maintenance",
       url: "/dashboard/maintenance",
@@ -52,9 +52,9 @@ const data = {
       icon: <ClipboardListIcon />,
     },
     {
-      title: "Messages",
-      url: "/dashboard/messages",
-      icon: <MessageSquareIcon />,
+      title: "Settings",
+      url: "/dashboard/settings",
+      icon: <SettingsIcon />,
     },
   ],
 };
@@ -95,27 +95,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader className="border-b border-[#c8ddc8] dark:border-[#1a3a1a] px-1">
         <SidebarMenu>
           <SidebarMenuItem>
-            <a
-              href="/dashboard"
-              className="flex items-center gap-3 px-3 py-3.5"
-            >
-              <div
-                className="
-                flex size-9 items-center justify-center rounded-xl
-                bg-[#1e4d2b] dark:bg-[#2a6e3a]
-                shadow-md shadow-[rgba(20,70,30,0.35)] dark:shadow-[rgba(0,0,0,0.4)]
-              "
-              >
-                <BuildingIcon className="size-5 text-white" />
-              </div>
-              <div>
-                <p className="text-base font-bold leading-none text-[#1a2e1a] dark:text-[#c8ecc8]">
-                  StayNest
-                </p>
-                <p className="text-[11px] mt-0.5 text-[#5a7a5a] dark:text-[#6a9a6a]">
-                  Management System
-                </p>
-              </div>
+            <a href="/" className="flex items-center gap-1 px-3 py-3.5">
+              <Image src="/Logo.png" alt="Logo" width={44} height={44} />
+              <span className="hidden text-[20px] font-semibold text-primary md:block">
+                StayNest
+              </span>
             </a>
           </SidebarMenuItem>
         </SidebarMenu>

@@ -1,9 +1,6 @@
-// src/redux/features/auth/authApi.ts
 import { baseApi } from "../../api/baseApi";
 import { AuthUser } from "./authSlice";
 
-// ─── Exact backend response wrapper ───────────────────────────────────────────
-// All your backend responses follow: { success, message, meta, data: <payload> }
 interface ApiResponse<T> {
   success: boolean;
   message: string;
@@ -11,11 +8,9 @@ interface ApiResponse<T> {
   data: T;
 }
 
-// ─── Auth-specific data shapes ────────────────────────────────────────────────
 interface LoginData {
   user: AuthUser;
-  accessToken: string; // backend returns "accessToken" NOT "token"
-  // No refreshToken — backend doesn't return one currently
+  accessToken: string;
 }
 
 interface OtpData {
@@ -26,7 +21,6 @@ interface VerifyData {
   accessToken: string;
 }
 
-// ─── Request types matching backend Zod schemas ───────────────────────────────
 interface LoginRequest {
   email: string;
   password: string;
@@ -40,7 +34,7 @@ interface RegisterRequest {
 }
 
 interface ChangePasswordRequest {
-  oldPassword: string; // backend uses "oldPassword" not "currentPassword"
+  oldPassword: string;
   newPassword: string;
 }
 
@@ -50,7 +44,6 @@ interface UpdateProfileRequest {
   image?: string;
 }
 
-// channel: "EMAIL" | "PHONE" — matches backend enum
 interface OtpRequest {
   identifier: string;
   channel: "EMAIL" | "PHONE";
@@ -71,7 +64,6 @@ interface ResetPasswordRequest {
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // ── POST /auth/register ────────────────────────────────────────────────
     register: builder.mutation<ApiResponse<LoginData>, RegisterRequest>({
       query: (data) => ({
         url: "/auth/register",
@@ -80,7 +72,14 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // ── POST /auth/login ───────────────────────────────────────────────────
+    googleLogin: builder.mutation<ApiResponse<LoginData>, { idToken: string }>({
+      query: (data) => ({
+        url: "/auth/google-login",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     login: builder.mutation<ApiResponse<LoginData>, LoginRequest>({
       query: (credentials) => ({
         url: "/auth/login",
@@ -90,14 +89,16 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Auth"],
     }),
 
-    // ── GET /auth/me ───────────────────────────────────────────────────────
-    // Backend route: router.get("/me", authorize("LOGGED_IN"), ...)
+    allUsers: builder.query<ApiResponse<AuthUser[]>, void>({
+      query: () => "/admin/users",
+      providesTags: ["User"],
+    }),
+
     getProfile: builder.query<ApiResponse<AuthUser>, void>({
-      query: () => "/auth/me", // ← "/me" NOT "/profile"
+      query: () => "/auth/me",
       providesTags: ["Auth"],
     }),
 
-    // ── PATCH /auth/update-profile ─────────────────────────────────────────
     updateProfile: builder.mutation<
       ApiResponse<AuthUser>,
       UpdateProfileRequest
@@ -110,17 +111,14 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Auth", "User"],
     }),
 
-    // ── PATCH /auth/change-password ────────────────────────────────────────
-    // Backend schema: { oldPassword, newPassword }
     changePassword: builder.mutation<ApiResponse<null>, ChangePasswordRequest>({
       query: (data) => ({
         url: "/auth/change-password",
-        method: "PATCH", // ← backend uses PATCH not POST
+        method: "PATCH",
         body: data,
       }),
     }),
 
-    // ── POST /auth/send-verify-otp ─────────────────────────────────────────
     sendVerifyOtp: builder.mutation<ApiResponse<OtpData>, OtpRequest>({
       query: (data) => ({
         url: "/auth/send-verify-otp",
@@ -129,7 +127,6 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // ── POST /auth/verify-account ──────────────────────────────────────────
     verifyAccount: builder.mutation<
       ApiResponse<VerifyData>,
       VerifyAccountRequest
@@ -141,7 +138,6 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // ── POST /auth/forgot-password ─────────────────────────────────────────
     forgotPassword: builder.mutation<ApiResponse<OtpData>, OtpRequest>({
       query: (data) => ({
         url: "/auth/forgot-password",
@@ -150,7 +146,6 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // ── POST /auth/reset-password ──────────────────────────────────────────
     resetPassword: builder.mutation<ApiResponse<null>, ResetPasswordRequest>({
       query: (data) => ({
         url: "/auth/reset-password",
@@ -159,7 +154,6 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // ── POST /auth/logout ──────────────────────────────────────────────────
     logoutApi: builder.mutation<ApiResponse<null>, void>({
       query: () => ({
         url: "/auth/logout",
@@ -173,7 +167,9 @@ export const authApi = baseApi.injectEndpoints({
 
 export const {
   useRegisterMutation,
+  useGoogleLoginMutation,
   useLoginMutation,
+  useAllUsersQuery,
   useGetProfileQuery,
   useUpdateProfileMutation,
   useChangePasswordMutation,

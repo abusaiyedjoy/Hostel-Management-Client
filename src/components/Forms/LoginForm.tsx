@@ -8,12 +8,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { MailIcon, LockIcon, EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-
+// import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { useLoginMutation, setCredentials, useAppDispatch } from "@/redux";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+// import { useGoogleLoginMutation } from "@/redux/features/auth/authApi";
 
-// ─── Validation schema (mirrors backend loginSchema) ──────────────────────────
 const loginSchema = z.object({
   email: z
     .string({ error: "Email is required" })
@@ -27,7 +27,6 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-// ─── Role → dashboard path (UPPERCASE roles matching backend) ─────────────────
 const ROLE_DASHBOARD: Record<string, string> = {
   ADMIN: "/dashboard",
   MESS_MANAGER: "/mess/dashboard",
@@ -35,14 +34,12 @@ const ROLE_DASHBOARD: Record<string, string> = {
   MEMBER: "/member/dashboard",
 };
 
-// ─── Component ────────────────────────────────────────────────────────────────
 const LoginForm = ({ redirect }: { redirect?: string }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [showPass, setShowPass] = useState(false);
-
-  // RTK Query mutation — auto handles loading state
   const [login, { isLoading }] = useLoginMutation();
+  // const [googleLoginApi] = useGoogleLoginMutation();
 
   const {
     register,
@@ -52,33 +49,50 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
     resolver: zodResolver(loginSchema),
   });
 
+  // const googleLoginHandler = useGoogleLogin({
+  //   flow: "implicit",
+  //   onSuccess: async (tokenResponse) => {
+  //     try {
+  //       const response = await googleLoginApi({
+  //         idToken: tokenResponse.access_token, // ⚠️ different flow
+  //       }).unwrap();
+
+  //       const { user, accessToken } = response.data;
+
+  //       dispatch(
+  //         setCredentials({
+  //           user,
+  //           token: accessToken,
+  //           refreshToken: null,
+  //         }),
+  //       );
+
+  //       router.push(ROLE_DASHBOARD[user.role] || "/dashboard");
+  //     } catch (err) {
+  //       toast.error("Google login failed");
+  //     }
+  //   },
+  // });
+
   const onSubmit = async (values: LoginFormValues) => {
     try {
-      // Call POST /auth/login
       const response = await login(values).unwrap();
-
-      // Backend response shape:
-      // { success: true, message: "Login successful", meta: null,
-      //   data: { user: {...}, accessToken: "eyJ..." } }
       const { user, accessToken } = response.data;
 
-      // Save to Redux store (+ localStorage via store.subscribe)
       dispatch(
         setCredentials({
           user,
-          token: accessToken, // backend calls it "accessToken"
-          refreshToken: null, // backend doesn't return refreshToken in body
+          token: accessToken,
+          refreshToken: null,
         }),
       );
 
       toast.success(`Welcome back, ${user.name}!`);
 
-      // Redirect: use ?redirect param if present, else role dashboard
       const destination = redirect || ROLE_DASHBOARD[user.role] || "/dashboard";
       router.push(destination);
-      router.refresh(); // clear Next.js server cache
+      router.refresh();
     } catch (err: any) {
-      // RTK Query wraps error: { status, data: { success, message } }
       const message =
         err?.data?.message || err?.error || "Login failed. Please try again.";
       toast.error(message);
@@ -102,6 +116,7 @@ const LoginForm = ({ redirect }: { redirect?: string }) => {
         <div className="grid grid-cols-3 gap-3">
           {/* Google */}
           <button
+            // onClick={() => googleLoginHandler()}
             type="button"
             className="flex items-center justify-center rounded-xl border border-border bg-background hover:bg-muted/50 transition-colors h-11"
           >

@@ -16,7 +16,7 @@ import MenuDropdown from "@/components/shadcn-studio/blocks/menu-dropdown";
 import MenuNavigation from "@/components/shadcn-studio/blocks/menu-navigation";
 import type { NavigationSection } from "@/components/shadcn-studio/blocks/menu-navigation";
 import { cn } from "@/lib/utils";
-import StayNestLogo from "@/assets/svg/bistro-logo";
+import Image from "next/image";
 
 type HeaderProps = {
   navigationData: NavigationSection[];
@@ -56,8 +56,8 @@ export default function Header({ navigationData, className }: HeaderProps) {
     >
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-3">
-          <StayNestLogo />
+        <a href="/" className="flex items-center gap-3">
+          <Image src="/Logo.png" alt="Logo" width={40} height={40} />
           <span className="hidden text-[20px] font-semibold text-primary md:block">
             StayNest
           </span>

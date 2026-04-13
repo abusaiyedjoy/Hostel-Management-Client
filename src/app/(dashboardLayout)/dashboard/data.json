@@ -80,39 +80,40 @@
   "users": {
     "stats": [
       {
-        "label": "Reviews this month",
-        "value": "1,200",
-        "sub": "vs last month",
-        "trend": "+12%",
-        "icon": "Star",
+        "label": "Total Users",
+        "value": "10",
+        "sub": "from database",
+        "trend": "+0%",
+        "icon": "Users",
         "iconColor": "#6E56FF",
         "iconBg": "#ede9ff"
       },
       {
         "label": "Active Users",
-        "value": "11,890",
-        "sub": "of total users",
-        "trend": "+3%",
+        "value": "10",
+        "sub": "isActive = true",
+        "trend": "+0%",
         "icon": "UserCheck",
         "iconColor": "#16a34a",
         "iconBg": "#dcfce7"
       },
       {
-        "label": "Suspended Users",
-        "value": "455",
-        "sub": "of total users",
-        "trend": "-1%",
-        "icon": "UserX",
-        "iconColor": "#dc2626",
-        "iconBg": "#fee2e2"
+        "label": "Admins / Managers",
+        "value": "4",
+        "sub": "ADMIN + MANAGERS",
+        "trend": "+0%",
+        "icon": "UserCog",
+        "iconColor": "#f59e0b",
+        "iconBg": "#fef3c7"
       }
     ],
     "tableConfig": {
-      "title": "Recent Activity",
-      "subtitle": "Latest platform activities and alerts",
+      "title": "Users",
+      "subtitle": "All registered users",
       "searchPlaceholder": "Search Users...",
       "columns": [
         { "key": "user", "label": "USER", "type": "userCell" },
+        { "key": "role", "label": "ROLE", "type": "badge" },
         { "key": "status", "label": "STATUS", "type": "badge" },
         { "key": "joinDate", "label": "JOIN DATE", "type": "text" },
         { "key": "actions", "label": "ACTIONS", "type": "userActions" }
@@ -120,124 +121,94 @@
     },
     "rows": [
       {
-        "id": 1,
-        "name": "New business registration",
-        "email": "skjhfdhf@gmail.com",
-        "avatar": "NB",
+        "id": "cmnecqzps00001kuhcth3t74a",
+        "name": "Abu Saiyed",
+        "email": "abu.saidking@gmail.com",
+        "avatar": "AS",
         "status": "Active",
-        "joinDate": "2025-1-15",
-        "reviews": 14,
-        "role": "Business Owner"
+        "joinDate": "2026-03-31",
+        "role": "MEAL_MANAGER"
       },
       {
-        "id": 2,
-        "name": "Review flagged",
-        "email": "hbsdfauhef@gmail.com",
-        "avatar": "RF",
+        "id": "cmncx3p5k0000wouhj2lv66vi",
+        "name": "Prince Joy",
+        "email": "143princejoy@gmail.com",
+        "avatar": "PJ",
         "status": "Active",
-        "joinDate": "2025-1-15",
-        "reviews": 3,
-        "role": "User"
+        "joinDate": "2026-03-30",
+        "role": "MEMBER"
       },
       {
-        "id": 3,
-        "name": "Payment processed",
-        "email": "isdjfngsdjnfvn@gmail.com",
-        "avatar": "PP",
+        "id": "cmmucgacj000dgouh2ecbce0y",
+        "name": "Member 5",
+        "email": "member5@delhiboys.com",
+        "avatar": "M5",
         "status": "Active",
-        "joinDate": "2025-1-15",
-        "reviews": 22,
-        "role": "User"
+        "joinDate": "2026-03-17",
+        "role": "MEMBER"
       },
       {
-        "id": 4,
-        "name": "Payment processed",
-        "email": "isdjfngsdjnfvn@gmail.com",
-        "avatar": "PP",
-        "status": "Suspended",
-        "joinDate": "2025-1-15",
-        "reviews": 8,
-        "role": "User"
-      },
-      {
-        "id": 5,
-        "name": "Payment processed",
-        "email": "isdjfngsdjnfvn@gmail.com",
-        "avatar": "PP",
+        "id": "cmmucg85i000bgouh9w0chmch",
+        "name": "Member 4",
+        "email": "member4@delhiboys.com",
+        "avatar": "M4",
         "status": "Active",
-        "joinDate": "2025-1-15",
-        "reviews": 5,
-        "role": "Business Owner"
+        "joinDate": "2026-03-17",
+        "role": "MEMBER"
       },
       {
-        "id": 6,
-        "name": "Payment processed",
-        "email": "isdjfngsdjnfvn@gmail.com",
-        "avatar": "PP",
-        "status": "Pending",
-        "joinDate": "2025-1-15",
-        "reviews": 0,
-        "role": "User"
+        "id": "cmmucg6150009gouhkuoon5gd",
+        "name": "Member 3",
+        "email": "member3@delhiboys.com",
+        "avatar": "M3",
+        "status": "Active",
+        "joinDate": "2026-03-17",
+        "role": "MEMBER"
       },
       {
-        "id": 7,
-        "name": "Alex Johnson",
-        "email": "alex.johnson@gmail.com",
+        "id": "cmmucg3ed0007gouhnlo4i5ar",
+        "name": "Member 2",
+        "email": "member2@delhiboys.com",
+        "avatar": "M2",
+        "status": "Active",
+        "joinDate": "2026-03-17",
+        "role": "MEMBER"
+      },
+      {
+        "id": "cmmucg1920005gouhel0qaf8c",
+        "name": "Member 1",
+        "email": "member1@delhiboys.com",
+        "avatar": "M1",
+        "status": "Active",
+        "joinDate": "2026-03-17",
+        "role": "MEMBER"
+      },
+      {
+        "id": "cmmucfyyz0003gouh0vaq7jnp",
+        "name": "Priya Singh",
+        "email": "meals@delhiboys.com",
+        "avatar": "PS",
+        "status": "Active",
+        "joinDate": "2026-03-17",
+        "role": "MEAL_MANAGER"
+      },
+      {
+        "id": "cmmucfwu20001gouh0yrau4ya",
+        "name": "Rajesh Kumar",
+        "email": "manager@delhiboys.com",
+        "avatar": "RK",
+        "status": "Active",
+        "joinDate": "2026-03-17",
+        "role": "MESS_MANAGER"
+      },
+      {
+        "id": "cmmucfvp70000gouhp9u7tao2",
+        "name": "Abu Saiyed Joy",
+        "email": "abusaiyedjoy1@gmail.com",
         "avatar": "AJ",
         "status": "Active",
-        "joinDate": "2025-2-03",
-        "reviews": 31,
-        "role": "User"
-      },
-      {
-        "id": 8,
-        "name": "Maria Gonzalez",
-        "email": "maria.g@gmail.com",
-        "avatar": "MG",
-        "status": "Active",
-        "joinDate": "2025-2-11",
-        "reviews": 17,
-        "role": "Business Owner"
-      },
-      {
-        "id": 9,
-        "name": "David Kim",
-        "email": "dkim@outlook.com",
-        "avatar": "DK",
-        "status": "Suspended",
-        "joinDate": "2025-1-28",
-        "reviews": 4,
-        "role": "User"
-      },
-      {
-        "id": 10,
-        "name": "Sarah Williams",
-        "email": "sarah.w@gmail.com",
-        "avatar": "SW",
-        "status": "Active",
-        "joinDate": "2025-3-01",
-        "reviews": 9,
-        "role": "User"
-      },
-      {
-        "id": 11,
-        "name": "James Patel",
-        "email": "jpatel@yahoo.com",
-        "avatar": "JP",
-        "status": "Pending",
-        "joinDate": "2025-3-05",
-        "reviews": 0,
-        "role": "Business Owner"
-      },
-      {
-        "id": 12,
-        "name": "Emily Chen",
-        "email": "echen@gmail.com",
-        "avatar": "EC",
-        "status": "Active",
-        "joinDate": "2025-3-08",
-        "reviews": 42,
-        "role": "User"
+        "joinDate": "2026-03-17",
+        "role": "ADMIN"
       }
     ]
   },

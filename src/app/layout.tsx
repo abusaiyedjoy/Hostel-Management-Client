@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { ThemeProvider } from "next-themes";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,6 +12,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "StayNest",
   description: "StayNest - A place for everyone to stay",
+  icons: {
+    icon: "/Logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -21,9 +25,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <ThemeProvider attribute="class">
-          <Providers>{children}</Providers>
-        </ThemeProvider>
+        <GoogleOAuthProvider
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+        >
+          <ThemeProvider attribute="class">
+            <Providers>{children}</Providers>
+          </ThemeProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
