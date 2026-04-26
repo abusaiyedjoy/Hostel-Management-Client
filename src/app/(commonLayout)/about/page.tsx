@@ -16,17 +16,11 @@ import {
   TwitterIcon,
 } from "lucide-react";
 
-// ─── Colour tokens (forest green, matching banner)
-// Light: bg #f0f7f0 | surface #fafdf8 | primary #1e4d2b | border #c8ddc8
-// Dark:  bg #0a150a | surface #111f11 | accent  #4ade80 | border #1e3a1e
-
-// ── shared primitives
 function SectionBadge({ label }: { label: string }) {
   return (
     <span
       className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold mb-4
-      bg-[#d4edcc] dark:bg-[#1a3a1a]
-      text-[#1e4d2b] dark:text-[#6ddc6d]"
+      bg-[#d4edcc] dark:bg-[#1a3a1a] text-[#1e4d2b] dark:text-[#6ddc6d]"
     >
       <span className="size-1.5 rounded-full bg-[#1e4d2b] dark:bg-[#4ade80]" />
       {label}
@@ -54,20 +48,17 @@ function Card({
   );
 }
 
-// ─── 1. Hero
+// ─── 1. Hero — pt-16 pushes content below the fixed 64px navbar ───────────────
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-28 lg:py-36">
-      {/* background */}
+    <section className="relative overflow-hidden pt-16">
       <div className="absolute inset-0 bg-gradient-to-br from-[#1e4d2b] via-[#245c32] to-[#2d7040]" />
-      {/* decorative blobs */}
       <div className="pointer-events-none absolute -top-24 -right-24 size-80 rounded-full bg-white/8 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-10 size-64 rounded-full bg-black/10 blur-3xl" />
       <div className="pointer-events-none absolute top-1/2 right-1/4 size-40 rounded-full bg-white/5 blur-2xl" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* text */}
           <div className="flex flex-col gap-6">
             <SectionBadge label="Our Story" />
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1]">
@@ -96,7 +87,6 @@ function HeroSection() {
             </div>
           </div>
 
-          {/* stats grid */}
           <div className="grid grid-cols-2 gap-4">
             {[
               {
@@ -143,7 +133,7 @@ function HeroSection() {
   );
 }
 
-// ─── 2. Mission & Vision
+// ─── 2. Mission & Vision ──────────────────────────────────────────────────────
 function MissionSection() {
   return (
     <section
@@ -155,14 +145,15 @@ function MissionSection() {
           <SectionBadge label="What Drives Us" />
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1a2e1a] dark:text-[#c8ecc8] leading-tight">
             Our mission, vision{" "}
-            <span className="text-[#1e4d2b] dark:text-[#4ade80]">& values</span>
+            <span className="text-[#1e4d2b] dark:text-[#4ade80]">
+              &amp; values
+            </span>
           </h2>
           <p className="mt-4 text-[#5a7a5a] dark:text-[#6a9a6a] text-lg">
             Every decision we make starts with the guest experience and ends
             with the promise of feeling at home.
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
@@ -212,7 +203,7 @@ function MissionSection() {
   );
 }
 
-// ─── 3. Timeline / Story
+// ─── 3. Timeline ──────────────────────────────────────────────────────────────
 function TimelineSection() {
   const milestones = [
     {
@@ -259,9 +250,7 @@ function TimelineSection() {
         </div>
 
         <div className="relative">
-          {/* centre line — desktop */}
           <div className="hidden lg:block absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-[#c8ddc8] dark:bg-[#1e3a1e]" />
-
           <div className="flex flex-col gap-8 lg:gap-0">
             {milestones.map((m, i) => {
               const isLeft = i % 2 === 0;
@@ -270,7 +259,6 @@ function TimelineSection() {
                   key={m.year}
                   className={`relative flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-0 ${isLeft ? "lg:flex-row" : "lg:flex-row-reverse"}`}
                 >
-                  {/* content */}
                   <div
                     className={`lg:w-[calc(50%-2rem)] ${isLeft ? "lg:pr-10 lg:text-right" : "lg:pl-10"}`}
                   >
@@ -286,13 +274,9 @@ function TimelineSection() {
                       </p>
                     </Card>
                   </div>
-
-                  {/* dot */}
                   <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 size-10 rounded-full items-center justify-center bg-[#1e4d2b] dark:bg-[#2d7040] border-4 border-[#fafdf8] dark:border-[#111f11] shadow-lg z-10">
                     <CalendarIcon className="size-4 text-white" />
                   </div>
-
-                  {/* spacer */}
                   <div className="hidden lg:block lg:w-[calc(50%-2rem)]" />
                 </div>
               );
@@ -304,7 +288,7 @@ function TimelineSection() {
   );
 }
 
-// ─── 4. Team
+// ─── 4. Team ──────────────────────────────────────────────────────────────────
 function TeamSection() {
   const team = [
     {
@@ -358,7 +342,6 @@ function TeamSection() {
             — your experience.
           </p>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {team.map((member) => (
             <Card
@@ -388,9 +371,9 @@ function TeamSection() {
                 {[
                   { Icon: TwitterIcon, href: member.twitter },
                   { Icon: LinkedinIcon, href: member.linkedin },
-                ].map(({ Icon, href }) => (
+                ].map(({ Icon, href }, i) => (
                   <a
-                    key={href}
+                    key={i}
                     href={href}
                     className="flex size-8 items-center justify-center rounded-full border border-[#c8ddc8] dark:border-[#1e3a1e] text-[#5a7a5a] dark:text-[#6a9a6a] hover:text-[#1e4d2b] dark:hover:text-[#4ade80] hover:border-[#6db86d] dark:hover:border-[#2d6a2d] transition-colors"
                   >
@@ -406,7 +389,7 @@ function TeamSection() {
   );
 }
 
-// ─── 5. Values
+// ─── 5. Values ────────────────────────────────────────────────────────────────
 function ValuesSection() {
   const values = [
     {
@@ -465,7 +448,6 @@ function ValuesSection() {
               <ArrowRightIcon className="size-4 group-hover:translate-x-0.5 transition-transform" />
             </a>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {values.map(({ icon: Icon, label, body }) => (
               <div
@@ -492,7 +474,7 @@ function ValuesSection() {
   );
 }
 
-// ─── 6. CTA
+// ─── 6. CTA ───────────────────────────────────────────────────────────────────
 function CtaSection() {
   return (
     <section className="py-16 sm:py-20 bg-[#f0f7f0] dark:bg-[#0a150a]">
@@ -521,10 +503,10 @@ function CtaSection() {
                 <ArrowRightIcon className="size-4 group-hover:translate-x-0.5 transition-transform" />
               </a>
               <a
-                href="/rooms"
+                href="/testimonials"
                 className="inline-flex items-center gap-2 rounded-full border border-white/30 text-white font-semibold px-6 py-3 text-sm hover:bg-white/10 transition-colors"
               >
-                Explore rooms
+                Read testimonials
               </a>
             </div>
           </div>
@@ -534,7 +516,6 @@ function CtaSection() {
   );
 }
 
-// ─── Page
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#f0f7f0] dark:bg-[#0a150a]">

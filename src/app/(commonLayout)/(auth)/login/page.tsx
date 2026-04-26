@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import LoginForm from "@/components/Forms/LoginForm";
+import { LoginForm } from "@/components/Forms/Login-Form";
 
 export default function LoginPage() {
   return (
@@ -11,14 +11,14 @@ export default function LoginPage() {
         <LoginForm />
 
         {/* ── RIGHT PANEL — Branded visual ── */}
-        <div className="hidden lg:flex relative flex-1 bg-linear-to-br from-primary via-primary/90 to-primary/10 flex-col justify-end p-10 overflow-hidden">
+        {/* <div className="hidden lg:flex relative flex-1 bg-linear-to-br from-primary via-primary/90 to-primary/10 flex-col justify-end p-10 overflow-hidden">
           <Image
             src="/login.png"
             alt="Login Right Panel"
             fill
             className="object-cover"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
